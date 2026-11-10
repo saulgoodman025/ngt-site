@@ -1,0 +1,7 @@
+node_modules/
+.taste-skill/chrome-*/
+.taste-skill/consistency/
+shots/
+work/*.png
+work/*_view.jpg
+work/src-site/

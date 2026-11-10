@@ -1,0 +1,27 @@
+{
+  "palettes": [
+    "paper-grey-brass",
+    "putty-black-teal"
+  ],
+  "types": [
+    "instrument",
+    "instrument"
+  ],
+  "dealt": [
+    "instrument",
+    "source-serif",
+    "red-hat"
+  ],
+  "moments": [
+    {
+      "id": "photo-chapters",
+      "at": "2026-11-10T14:38:06.376Z",
+      "seed": "34593029"
+    },
+    {
+      "id": "word-highlight",
+      "at": "2026-11-10T14:38:06.376Z",
+      "seed": "34593029"
+    }
+  ]
+}

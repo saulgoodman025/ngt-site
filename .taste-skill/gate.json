@@ -1,0 +1,420 @@
+{
+ "start": "2026-11-10T14:37:50.882Z",
+ "round": 1,
+ "idle": 0,
+ "errors": 0,
+ "status": "pass",
+ "history": [
+  {
+   "at": "2026-11-10T15:05:47.340Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 13,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-10T15:17:04.458Z",
+   "mode": "manual",
+   "status": "pass",
+   "fails": 0,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-10T15:18:15.580Z",
+   "mode": "hook",
+   "host": "claude",
+   "decision": "allow",
+   "reason": "no build is active here",
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-10T15:20:08.348Z",
+   "mode": "hook",
+   "host": "claude",
+   "decision": "allow",
+   "reason": "no build is active here",
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-10T15:21:03.706Z",
+   "mode": "hook",
+   "host": "claude",
+   "decision": "allow",
+   "reason": "no build is active here",
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "index.html",
+  "url": null,
+  "root": null,
+  "kind": "service",
+  "category": "5축·다축 정밀가공",
+  "primary": "견적 문의하기",
+  "rounds": 3,
+  "start": "2026-11-10T14:37:50.882Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "ab69c8ef670bc78a:0c8e6689",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "c48d54ae75f26445",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "no-visual",
+    "where": "section#history \"2005년부터 이어 온 연혁\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#history \"2005년부터 이어 온 연혁\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "section#inquiry \"견적과 가공 문의\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#inquiry \"견적과 가공 문의\""
+    ]
+   },
+   {
+    "check": "phone-number",
+    "where": "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(2) \"031-373-9053\"",
+    "msg": "a phone number with its area code: \"031-373-9053\"; a visitor can dial it and reach a stranger",
+    "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "phone-number"
+    ],
+    "wheres": [
+     "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(2) \"031-373-9053\""
+    ]
+   },
+   {
+    "check": "phone-number",
+    "where": "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(3) \"070-8224-8175\"",
+    "msg": "a phone number with its area code: \"070-8224-8175\"; a visitor can dial it and reach a stranger",
+    "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "phone-number"
+    ],
+    "wheres": [
+     "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(3) \"070-8224-8175\""
+    ]
+   },
+   {
+    "check": "hero-lines",
+    "where": "section.hero h1",
+    "msg": "the check fills the h1 to 42 characters (this hero's maxChars in heroes.json), not the page's own: it takes 5 lines at 1440, 3 at most",
+    "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "hero-lines"
+    ],
+    "wheres": [
+     "section.hero h1"
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "scroll-reveal",
+    "where": "section#company > div.wrap > p.mo-wh__text \"(주)뉴젠텍은 2005년 9월 설립된 5축·다축 정밀가공 전문 기업입니다\"",
+    "msg": "starts \"color\" (0.2 s) the moment it is scrolled into view (an IntersectionObserver) on span.mo-w:nth-of-type(1) (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "pinned",
+    "where": "section#process > div.wrap.mo-ph \"도면에서 성적서까지, 다섯 공정 부품 하나가 공장에 들어와 나가기까지의 \"",
+    "msg": "held on screen for 3 screens of scroll (position: sticky) while the page moves on (inside a dealt moment's section, [data-moment]: expected on every kind, two moments at most, house rule; its still is judged under reduced motion)",
+    "fix": "let the section scroll with the page",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#process \"도면에서 성적서까지, 다섯 공정\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headline",
+    "where": "h1#hero-h \"오산의 5축·다축 정밀가공 공장\"",
+    "msg": "the h1 has 1 word (2 to 8 read at a glance)",
+    "fix": "put the category noun in the h1 (and who it is for, or where), in 2 to 8 words",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "div.wrap > div.grid > article.card.card--row:nth-of-type(2) > h3 \"ISO 인증과 이노비즈\"",
+    "msg": "\"ISO 인증과 이노비즈\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "main#top > section.hero.hero--film / section#process",
+    "msg": "158px between these sections, -42% against the median 271px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#process / section#tech",
+    "msg": "142px between these sections, -48% against the median 271px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#industries / section#capacity",
+    "msg": "182px between these sections, -33% against the median 271px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#history / section#quality",
+    "msg": "340px between these sections, +25% against the median 271px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#quality / section#inquiry",
+    "msg": "343px between these sections, +27% against the median 271px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-set",
+    "where": "div.grid > article.card.card--row:nth-of-type(1) > div.panel > img.frame__img \"probe-800.webp\"",
+    "msg": "4 photographs in more than one look: lightness from 0.18 to 0.68; the odd one out is probe-800.webp",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 5 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "skip-link",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > a.skip-link:nth-of-type(1) \"본문으로 건너뛰기\"",
+    "msg": "the first Tab stop is \"본문으로 건너뛰기\", not a skip link: a keyboard user tabs through the whole nav on every visit",
+    "fix": "add the starter's skip link as the header's first child: <a class=\"skip-link\" href=\"#top\">Skip to content</a>",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"견적 문의하기\"",
+    "msg": "\"견적 문의하기\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > button.nav__toggle",
+    "msg": "the nav is lopsided: its last item ends 13px inside the content's edge (366px), while its first starts on the other edge",
+    "fix": "start the nav's first item and end its last on the content's two edges",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-stat-strip",
+    "msg": "stat strip x1",
+    "fix": "a strip only of figures the brief gives (a price, hours, a count); otherwise put each number in the sentence it proves, or leave it out (references/copy-tells.md)",
+    "widths": [],
+    "from": "copy",
+    "where": "copy x1: \"2015 / 2020 / 2025\"",
+    "exact": false
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 135,
+   "layout": 3
+  }
+ },
+ "open": [],
+ "waived": [
+  {
+   "check": "no-visual",
+   "where": "section#history \"2005년부터 이어 온 연혁\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#history \"2005년부터 이어 온 연혁\""
+   ],
+   "reason": "A dated history and company facts table: sections.md allows one picture-less specs table, not next to the form."
+  },
+  {
+   "check": "no-visual",
+   "where": "section#inquiry \"견적과 가공 문의\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#inquiry \"견적과 가공 문의\""
+   ],
+   "reason": "The booking-form section: sections.md allows one picture-less section for a form."
+  },
+  {
+   "check": "phone-number",
+   "where": "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(2) \"031-373-9053\"",
+   "msg": "a phone number with its area code: \"031-373-9053\"; a visitor can dial it and reach a stranger",
+   "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "phone-number"
+   ],
+   "wheres": [
+    "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(2) \"031-373-9053\""
+   ],
+   "reason": "The client's own published phone number, given by the brief (newgt.co.kr), which asks to keep the site's contact content."
+  },
+  {
+   "check": "phone-number",
+   "where": "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(3) \"070-8224-8175\"",
+   "msg": "a phone number with its area code: \"070-8224-8175\"; a visitor can dial it and reach a stranger",
+   "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "phone-number"
+   ],
+   "wheres": [
+    "div.wrap > div.grid.grid--top > ul.rows.rows--spec > li:nth-of-type(3) \"070-8224-8175\""
+   ],
+   "reason": "The client's own published fax number, given by the brief (newgt.co.kr), which asks to keep the site's contact content."
+  },
+  {
+   "check": "hero-lines",
+   "where": "section.hero h1",
+   "msg": "the check fills the h1 to 42 characters (this hero's maxChars in heroes.json), not the page's own: it takes 5 lines at 1440, 3 at most",
+   "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "hero-lines"
+   ],
+   "wheres": [
+    "section.hero h1"
+   ],
+   "reason": "The stress test fills the h1 to 42 Latin-width characters; Hangul glyphs are full-width, and the page's own h1 is 17 characters on two lines at every width."
+  }
+ ],
+ "warnCount": 16,
+ "at": "2026-11-10T15:17:04.458Z"
+}
