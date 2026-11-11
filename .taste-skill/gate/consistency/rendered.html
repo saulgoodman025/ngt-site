@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" data-type="service" data-radius="soft" data-buttons="block" data-motion="" class="m-enter mo-js m-enter-done mo-safe" data-tone="light" data-moments-ready="2" data-ready="1"><head>
+<html lang="ko" data-type="service" data-radius="soft" data-buttons="block" data-motion="" class="m-enter mo-js m-enter-done mo-safe" data-tone="light" data-moments-ready="1" data-ready="1"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NGT 뉴젠텍: 오산의 5축·다축 정밀가공 공장</title>
@@ -40,13 +40,33 @@
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
 <link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/photo-chapters/moment.js">
 <link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
 <style>
   /* page CSS: the client's logo in the bar, and the word-break Korean needs */
   .nav__logo img { height: 28px; width: auto; display: block; }
   h1, h2, h3, p, li, dd, dt, label, a { word-break: keep-all; }
+  /* the process film (scroll-world): a dark, full-bleed scene; its tokens theme scroll-world/ngt-film.js */
+  main > section.film { position: relative; display: block; height: auto; min-height: 0; padding: 0; background: #0a0a0a; }
+  .film__world { --sw-bg: #0a0a0a; --sw-ink: #f1efe9; --sw-ink-soft: #a9a6a0; --sw-accent: #6fb8cc;
+    --sw-font-display: var(--font-display); --sw-font-body: var(--font-text); }
+  .film__text { margin: 0; padding: var(--padt) var(--gut) var(--padb); list-style: none; color: #f1efe9; display: grid; gap: var(--s-6); max-width: 720px; }
+  .film__text h3 { color: inherit; } .film__text p { color: #c9c6c0; }
+  .sw-root > .film__text { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); }
+  .film .sw-scene__video, .film .sw-scene__still { width: 100%; height: 100%; max-width: none; }
+  .film .sw-copy { left: var(--gut); }
+  .film .sw-copy { width: min(46vw, 600px); }
+  .film .sw-copy__title { font-size: clamp(2rem, 3.9vw, 3.25rem); line-height: 1.12; margin: 12px 0 0; text-wrap: balance; font-weight: 400; letter-spacing: var(--display-tracking); word-break: keep-all; }
+  .film .sw-copy__eyebrow { font-weight: 500; letter-spacing: 0; text-transform: none; font-size: var(--t-small); }
+  .film .sw-copy__num { font-family: var(--font-text); letter-spacing: 0; font-size: var(--t-small); }
+  .film .sw-copy__body { word-break: keep-all; margin-top: 18px; font-size: var(--t-lead); line-height: 1.6; color: #e4e1db; }
+  .film .sw-copy__tags { margin-top: 24px; }
+  .film .sw-copy__eyebrow { margin-top: 16px; }
+  .film .sw-copy__tags li { color: #f1efe9; background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .18); font-weight: 500; }
+  .film .sw-btn--primary { color: #fff; background: var(--action); border-radius: var(--r-btn); }
+  .film .sw-route__label { color: #0a0a0a; }
+  .film .sw-hint { letter-spacing: 0; text-transform: none; font-size: var(--t-small); }
   /* the peek photograph keeps a ratio once the split stacks */
+  @media (max-width: 860px) { .film .sw-copy { width: auto; transform: none !important; } }
   @media (max-width: 1023px) { #industries .wrap > .fill { flex: none; } #industries .frame--fill { flex: none; height: auto; aspect-ratio: 4 / 3; } }
   /* a spec row's value wraps inside its column instead of pushing the page wide */
   .rows--spec > li { grid-template-columns: auto minmax(0, 1fr); }
@@ -54,12 +74,94 @@
   #quality .panel { --p-h: 340px; }
   @media (max-width: 639px) { #quality .panel { --p-h: 200px; } }
 </style>
-<link rel="stylesheet" href="http://127.0.0.1:5200/assets/moments/photo-chapters/moment.css"><link rel="stylesheet" href="http://127.0.0.1:5200/assets/moments/word-highlight/moment.css"></head>
+<style id="sw-css">@layer sw {
+
+  .sw-root{--sw-bg:#F5EDE0;--sw-ink:#241d2b;--sw-ink-soft:#6a6072;--sw-accent:#8a7bb5;
+    --sw-font-display:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;
+    --sw-font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    color:var(--sw-ink);font-family:var(--sw-font-body);}
+  .sw-root{position:relative;background:var(--sw-bg);}
+  .sw-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;}
+  .sw-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--sw-bg);}
+  .sw-sky__grad{position:absolute;inset:-10%;background:linear-gradient(178deg,color-mix(in srgb,var(--sw-accent) 12%,var(--sw-bg)) 0%,var(--sw-bg) 55%,color-mix(in srgb,var(--sw-accent) 6%,var(--sw-bg)) 100%);}
+  .sw-sky__glow{position:absolute;inset:0;background:radial-gradient(60% 42% at 74% 16%,color-mix(in srgb,var(--sw-accent) 22%,transparent),transparent 70%),radial-gradient(46% 34% at 50% 50%,color-mix(in srgb,#fff 45%,transparent),transparent 70%);}
+  .sw-particles{position:absolute;inset:-6% -2%;will-change:transform;}
+  .sw-pt{position:absolute;width:13px;height:13px;transform:scale(var(--sw-sc,1));opacity:0;animation:sw-drift linear infinite;}
+  .sw-pt::before{content:"";position:absolute;inset:0;border-radius:50%;}
+  .sw-pt--dot::before{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--sw-accent) 60%,#000),#000 82%);}
+  .sw-pt--ring::before{background:transparent;border:2px solid color-mix(in srgb,var(--sw-accent) 55%,transparent);}
+  @keyframes sw-drift{0%{opacity:0;transform:scale(var(--sw-sc)) translate(0,12vh) rotate(0)}12%{opacity:.5}88%{opacity:.45}100%{opacity:0;transform:scale(var(--sw-sc)) translate(4vw,-22vh) rotate(210deg)}}
+  .sw-scrollbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:color-mix(in srgb,var(--sw-accent) 14%,transparent);}
+  .sw-scrollbar span{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sw-accent);}
+  .sw-topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,2.4vw,26px) clamp(18px,5vw,64px);}
+  .sw-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--sw-ink);}
+  .sw-brand__mark{width:24px;height:28px;border-radius:7px 7px 10px 10px;background:linear-gradient(160deg,var(--sw-accent),color-mix(in srgb,var(--sw-accent) 60%,#000));box-shadow:0 6px 14px color-mix(in srgb,var(--sw-accent) 40%,transparent);}
+  .sw-brand__name{font-family:var(--sw-font-display);font-weight:700;font-size:1.1rem;}
+  .sw-nav{display:flex;gap:4px;padding:5px;background:color-mix(in srgb,#fff 55%,transparent);backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--sw-accent) 16%,transparent);border-radius:999px;}
+  .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
+  .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
+  .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
+  .sw-stage{position:absolute;inset:0;z-index:10;pointer-events:none;}
+  .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
+  .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+  .sw-scene__still{will-change:transform;} .sw-scene.has-clip .sw-scene__still{opacity:0;} .sw-scene__video{z-index:1;}
+  .sw-copylayer{position:absolute;inset:0;z-index:20;pointer-events:none;}
+  .sw-copylayer::before{content:"";position:absolute;inset:0;width:min(58vw,780px);background:linear-gradient(90deg,var(--sw-bg) 0%,color-mix(in srgb,var(--sw-bg) 82%,transparent) 34%,color-mix(in srgb,var(--sw-bg) 40%,transparent) 62%,transparent 100%);}
+  .sw-copy{position:absolute;left:clamp(18px,5vw,64px);top:50%;transform:translateY(-50%);width:min(42vw,460px);opacity:0;will-change:opacity,transform;}
+  .sw-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:var(--sw-ink-soft);}
+  .sw-copy__eyebrow{display:block;margin-top:18px;font-family:var(--sw-font-display);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sw-accent);}
+  .sw-copy__title{font-family:var(--sw-font-display);font-weight:700;color:var(--sw-ink);font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 2px 20px color-mix(in srgb,var(--sw-bg) 70%,transparent);}
+  .sw-copy__body{margin-top:18px;font-size:clamp(1rem,1.25vw,1.14rem);line-height:1.55;color:color-mix(in srgb,var(--sw-ink) 78%,var(--sw-ink-soft));max-width:40ch;text-shadow:0 1px 12px color-mix(in srgb,var(--sw-bg) 90%,transparent);}
+  .sw-copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;padding:0;}
+  .sw-copy__tags li{font-size:.82rem;font-weight:600;color:color-mix(in srgb,var(--sw-accent) 70%,#000);padding:7px 14px;border-radius:999px;background:color-mix(in srgb,var(--sw-accent) 14%,#fff);border:1px solid color-mix(in srgb,var(--sw-accent) 30%,transparent);}
+  .sw-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;pointer-events:auto;}
+  .sw-btn{text-decoration:none;font-weight:600;font-size:.95rem;padding:13px 24px;border-radius:999px;transition:transform .2s;}
+  .sw-btn--primary{color:#fff;background:var(--sw-ink);} .sw-btn--primary:hover{transform:translateY(-2px);}
+  .sw-btn--ghost{color:var(--sw-ink);border:1.5px solid color-mix(in srgb,var(--sw-ink) 25%,transparent);} .sw-btn--ghost:hover{transform:translateY(-2px);}
+  .sw-route{position:absolute;right:clamp(14px,2.4vw,30px);top:50%;z-index:40;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;padding:18px 10px;}
+  .sw-route::before{content:"";position:absolute;left:50%;top:22px;bottom:22px;width:2px;transform:translateX(-50%);background:var(--sw-accent);opacity:.28;}
+  .sw-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
+  .sw-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--sw-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
+  .sw-route__dot:hover i{transform:scale(1.25);background:var(--sw-accent);}
+  .sw-route__dot.is-active i{background:var(--sw-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--sw-accent) 22%,transparent);}
+  .sw-route__label{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.78rem;font-weight:600;color:var(--sw-ink);background:color-mix(in srgb,#fff 85%,transparent);backdrop-filter:blur(6px);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;border:1px solid color-mix(in srgb,var(--sw-accent) 14%,transparent);}
+  .sw-route__dot:hover .sw-route__label,.sw-route__dot.is-active .sw-route__label{opacity:1;transform:translateY(-50%) translateX(0);}
+  .sw-hint{position:absolute;left:50%;bottom:26px;z-index:30;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sw-ink-soft);transition:opacity .3s;}
+  .sw-hint i{width:22px;height:34px;border-radius:12px;border:2px solid color-mix(in srgb,var(--sw-ink) 28%,transparent);position:relative;}
+  .sw-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--sw-accent);transform:translateX(-50%);animation:sw-wheel 1.7s ease-in-out infinite;}
+  @keyframes sw-wheel{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:17px}}
+  .sw-track{position:relative;z-index:1;width:100%;pointer-events:none;}
+  @media (max-width:860px){
+    .sw-nav{display:none;}
+    .sw-copylayer::before{width:100%;height:60%;top:auto;bottom:0;background:linear-gradient(0deg,var(--sw-bg) 8%,color-mix(in srgb,var(--sw-bg) 70%,transparent) 46%,transparent 100%);}
+    /* Anchor copy to the bottom, clear of the home indicator / collapsing URL bar.
+       dvh + env() are progressive: browsers that lack them keep the vh fallback line. */
+    .sw-copy{left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px);top:auto;bottom:clamp(64px,14vh,120px);transform:none;width:auto;max-width:560px;}
+    .sw-copy{bottom:calc(clamp(56px,12dvh,110px) + env(safe-area-inset-bottom));}
+    .sw-copy__title{font-size:clamp(1.9rem,7.5vw,2.7rem);}
+    .sw-copy__body{max-width:none;font-size:clamp(.98rem,3.6vw,1.1rem);} .sw-scene__video,.sw-scene__still{object-position:center 46%;}
+    .sw-hint{bottom:calc(20px + env(safe-area-inset-bottom));}
+    .sw-route{gap:16px;right:6px;} .sw-route__label{display:none;}
+  }
+  /* Portrait phones crop a 16:9 clip hard; keep the framing centred so the focal
+     subject (which the camera dives toward) stays in view. */
+  @media (max-width:860px) and (orientation:portrait){
+    .sw-scene__video,.sw-scene__still{object-position:center 44%;}
+  }
+  /* Touch: give the route dots a finger-sized hit area without growing the visible dot. */
+  @media (hover:none) and (pointer:coarse){
+    .sw-route{padding:14px 6px;}
+    .sw-route__dot{width:28px;height:28px;}
+    .sw-btn{padding:15px 26px;}
+  }
+  @media (prefers-reduced-motion:reduce){ .sw-hint i::after{animation:none;} .sw-pt{display:none;} }
+  
+}</style><link rel="stylesheet" href="http://127.0.0.1:5200/assets/moments/word-highlight/moment.css"></head>
 <body>
 <!-- type: service (site-kind other)
      deal: hero film, nav nav-centre, close close-type, footer footer-columns, rhythm space, buttons block, mark the client's logo
      palette putty-black-teal, type IBM Plex Sans KR (Hangul; the dealt Instrument Sans has none)
-     moments: photo-chapters in #process (the five steps of a job, one photograph each), word-highlight in #company -->
+     moments: word-highlight in #company; the scroll-world process film in #process (asked for by the brief) -->
 
 <header class="nav nav--centre" data-m-nav="1">
   <div class="wrap nav__bar">
@@ -99,39 +201,21 @@
     </div></div>
   </section>
 
-  <!-- photo-chapters: the five steps of one job. These five stills are also the scene set of the scroll-world
-       camera chain (work/BRIEF.md); the rendered chain replaces this section's photographs with the film. -->
-  <section class="section is-live" id="process" data-moment="photo-chapters" aria-labelledby="process-h" data-moment-mounted="1" style="--mo-hold: 3;">
-    <div class="wrap mo-ph" data-edge-free="">
-      <div class="mo-ph__head"><h2 id="process-h">도면에서 성적서까지, 다섯 공정</h2><p>부품 하나가 공장에 들어와 나가기까지의 순서입니다. 모든 공정이 오산 자가 공장 안에서 이어집니다.</p></div>
-      
-    <div class="mo-ph__stage"><figure class="mo-ph__pic" style="--mo-c: 0.00%; --mo-z: 1.0000;"><img src="assets/img/ch1.jpg" alt="CAD 형상이 떠 있는 모니터와 측정 공구, 샘플 부품이 놓인 검토 책상" width="1600" height="900" data-source="illustration" data-subject="도면 검토실"></figure><figure class="mo-ph__pic" style="--mo-c: 100.00%; --mo-z: 1.0600;"><img src="assets/img/ch2.jpg" alt="5축 공구 경로 시뮬레이션이 표시된 CAM 작업 화면과 공구 홀더" width="1600" height="900" data-source="illustration" data-subject="CAM 공정 설계"></figure><figure class="mo-ph__pic" style="--mo-c: 100.00%; --mo-z: 1.0600;"><img src="assets/img/ch3.jpg" alt="5축 머시닝센터 안에서 절삭 중인 금속 부품" width="1600" height="900" data-source="illustration" data-subject="5축 가공"></figure><figure class="mo-ph__pic" style="--mo-c: 100.00%; --mo-z: 1.0600;"><img src="assets/img/ch4.jpg" alt="3차원 좌표측정기의 프로브가 가공된 부품을 측정하는 모습" width="1600" height="900" data-source="illustration" data-subject="CMM 측정"></figure><figure class="mo-ph__pic" style="--mo-c: 100.00%; --mo-z: 1.0600;"><img src="assets/img/ch5.jpg" alt="가공을 마친 정밀 금속 부품들" width="1600" height="900" data-source="illustration" data-subject="완성 부품"></figure><div class="mo-ph__panel"><p class="mo-ph__count" aria-hidden="true">01 / 05</p><ol class="mo-ph__list">
-        <li class="mo-ph__ch is-on">
-          
-          
-          
-        <div class="mo-ph__words"><h3>도면·공차 검토</h3><p>형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법과 소재 변형까지 제조성을 검토합니다.</p></div></li>
-        <li class="mo-ph__ch">
-          
-          
-          
-        <div class="mo-ph__words"><h3>5축 공정 설계</h3><p>고정, 공구 접근, 가공 순서를 정합니다. 자체 CAM 로직으로 포스트 프로세싱을 직접 제어합니다.</p></div></li>
-        <li class="mo-ph__ch">
-          
-          
-          
-        <div class="mo-ph__words"><h3>동시 5축 가공</h3><p>독일·일본산 동시 5축 머시닝센터로 알루미늄, SUS, 티타늄의 복합 형상을 깎습니다.</p></div></li>
-        <li class="mo-ph__ch">
-          
-          
-          
-        <div class="mo-ph__words"><h3>CMM·3D 정밀 검사</h3><p>3차원 좌표측정기와 3D 스캐너, 조도 측정기로 미크론 단위 공차를 확인합니다.</p></div></li>
-        <li class="mo-ph__ch">
-          
-          
-          
-        <div class="mo-ph__words"><h3>마킹과 성적서 발행</h3><p>레이저 마킹으로 부품을 식별하고, 로트별 검사 이력과 함께 검사 성적서를 발행합니다.</p></div></li>
-      </ol></div></div></div>
+  <!-- THE PROCESS FILM (scroll-world): five camera legs scrubbed by scroll, one continuous forward take
+       through the five steps of a job. The user's brief asks for this film by name; it is the page's one
+       scroll scene. The list below is the same content as text, for readers and for when scripts are off;
+       scroll-world/ngt-film.js mounts the film over it. Under reduced motion the stills cross-dissolve. -->
+  <section class="film" id="process" aria-labelledby="process-h">
+    <h2 class="sr-only" id="process-h">도면에서 성적서까지, 다섯 공정</h2>
+    <div class="film__world sw-root" id="film-world" style="height: 8100px; --sw-accent: #6fb8cc;">
+      <ol class="film__text">
+        <li><h3>도면·공차 검토</h3><p>형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법과 소재 변형까지 제조성을 검토합니다.</p></li>
+        <li><h3>5축 공정 설계</h3><p>고정, 공구 접근, 가공 순서를 정합니다. 자체 CAM 로직으로 포스트 프로세싱을 직접 제어합니다.</p></li>
+        <li><h3>동시 5축 가공</h3><p>독일·일본산 동시 5축 머시닝센터로 알루미늄, SUS, 티타늄의 복합 형상을 깎습니다.</p></li>
+        <li><h3>CMM·3D 정밀 검사</h3><p>3차원 좌표측정기와 3D 스캐너, 조도 측정기로 미크론 단위 공차를 확인합니다.</p></li>
+        <li><h3>마킹과 성적서 발행</h3><p>레이저 마킹으로 부품을 식별하고, 로트별 검사 이력과 함께 검사 성적서를 발행합니다.</p></li>
+      </ol>
+    <div class="sw-pin" aria-hidden="true"><div class="sw-stage"><div class="sw-scene has-clip" style="--sw-accent: #6fb8cc; opacity: 0; z-index: 120;"><img class="sw-scene__still" alt="" decoding="async" loading="eager" src="assets/img/film0.jpg" style="transform: translateX(2vw) scale(1.03);"><video class="sw-scene__video" playsinline="" preload="auto" muted="" src="blob:http://127.0.0.1:5200/05c60617-68e0-4339-97b8-eca290be8c0e"></video></div><div class="sw-scene has-clip" style="--sw-accent: #6fb8cc; opacity: 0; z-index: 100;"><img class="sw-scene__still" alt="" decoding="async" loading="eager" src="assets/img/film1.jpg" style="transform: translateX(2vw) scale(1.03);"><video class="sw-scene__video" playsinline="" preload="auto" muted="" src="blob:http://127.0.0.1:5200/17becdbb-e1fb-442b-bf97-aa0f31b426cf"></video></div><div class="sw-scene has-clip" style="--sw-accent: #6fb8cc; opacity: 0; z-index: 100;"><img class="sw-scene__still" alt="" decoding="async" loading="eager" src="assets/img/film2.jpg" style="transform: translateX(2vw) scale(1.03);"><video class="sw-scene__video" playsinline="" preload="auto" muted="" src="blob:http://127.0.0.1:5200/f3e91e04-4a81-4707-9e7b-2854e991511f"></video></div><div class="sw-scene has-clip" style="--sw-accent: #6fb8cc; opacity: 0; z-index: 100;"><img class="sw-scene__still" alt="" decoding="async" loading="eager" src="assets/img/film3.jpg" style="transform: translateX(2vw) scale(1.047);"><video class="sw-scene__video" playsinline="" preload="auto" muted="" src="blob:http://127.0.0.1:5200/771fb3d0-86fc-435a-b67d-c8d8b9b4abcc"></video></div><div class="sw-scene has-clip" style="--sw-accent: #6fb8cc; opacity: 0; z-index: 100;"><img class="sw-scene__still" alt="" decoding="async" loading="eager" src="assets/img/film4.jpg" style="transform: translateX(2vw) scale(1.03);"><video class="sw-scene__video" playsinline="" preload="auto" muted="" src="blob:http://127.0.0.1:5200/11d4dbd8-4e9f-4aa3-a60e-0c68e03a68fd"></video></div></div><div class="sw-copylayer"><article class="sw-copy" style="--sw-accent: #6fb8cc; opacity: 1; transform: translateY(calc(-50% + 1.22vh)); pointer-events: auto;"><span class="sw-copy__num">01 / 05</span><span class="sw-copy__eyebrow">도면·공차 검토</span><h3 class="sw-copy__title">가공은 도면 검토에서 시작합니다</h3><p class="sw-copy__body">형상과 기준면, 관리 포인트를 먼저 확인하고 제조성을 검토합니다.</p><ul class="sw-copy__tags"><li>DFM</li><li>공차 검토</li></ul></article><article class="sw-copy" style="--sw-accent: #6fb8cc; opacity: 0; transform: translateY(calc(-50% + 4vh)); pointer-events: none;"><span class="sw-copy__num">02 / 05</span><span class="sw-copy__eyebrow">5축 공정 설계</span><h3 class="sw-copy__title">공구 경로를 직접 설계합니다</h3><p class="sw-copy__body">고정, 공구 접근, 가공 순서를 정하고 자체 CAM 로직으로 포스트 프로세싱을 제어합니다.</p><ul class="sw-copy__tags"><li>CAD/CAM</li><li>자체 CAM 로직</li></ul></article><article class="sw-copy" style="--sw-accent: #6fb8cc; opacity: 0; transform: translateY(calc(-50% + 4vh)); pointer-events: none;"><span class="sw-copy__num">03 / 05</span><span class="sw-copy__eyebrow">동시 5축 가공</span><h3 class="sw-copy__title">복합 형상을 한 번에 깎습니다</h3><p class="sw-copy__body">독일·일본산 동시 5축 머시닝센터로 알루미늄, SUS, 티타늄을 가공합니다.</p><ul class="sw-copy__tags"><li>알루미늄</li><li>SUS</li><li>티타늄</li></ul></article><article class="sw-copy" style="--sw-accent: #6fb8cc; opacity: 0; transform: translateY(calc(-50% + 4vh)); pointer-events: none;"><span class="sw-copy__num">04 / 05</span><span class="sw-copy__eyebrow">CMM·3D 정밀 검사</span><h3 class="sw-copy__title">미크론 단위로 확인합니다</h3><p class="sw-copy__body">3차원 좌표측정기와 3D 스캐너, 조도 측정기로 공차를 검사합니다.</p><ul class="sw-copy__tags"><li>CMM</li><li>3D 스캐너</li><li>조도 측정</li></ul></article><article class="sw-copy" style="--sw-accent: #6fb8cc; opacity: 0; transform: translateY(calc(-50% + 4vh)); pointer-events: none;"><span class="sw-copy__num">05 / 05</span><span class="sw-copy__eyebrow">마킹과 성적서</span><h3 class="sw-copy__title">검사 이력과 함께 출하합니다</h3><p class="sw-copy__body">레이저 마킹으로 부품을 식별하고 검사 성적서를 발행합니다.</p><div class="sw-copy__cta"><a class="sw-btn sw-btn--primary" tabindex="-1" href="#inquiry">견적 문의하기</a></div></article></div><div class="sw-route"><button class="sw-route__dot is-active" tabindex="-1" style="--sw-accent: #6fb8cc;"><span class="sw-route__label">도면·공차 검토</span><i></i></button><button class="sw-route__dot" tabindex="-1" style="--sw-accent: #6fb8cc;"><span class="sw-route__label">5축 공정 설계</span><i></i></button><button class="sw-route__dot" tabindex="-1" style="--sw-accent: #6fb8cc;"><span class="sw-route__label">동시 5축 가공</span><i></i></button><button class="sw-route__dot" tabindex="-1" style="--sw-accent: #6fb8cc;"><span class="sw-route__label">CMM·3D 정밀 검사</span><i></i></button><button class="sw-route__dot" tabindex="-1" style="--sw-accent: #6fb8cc;"><span class="sw-route__label">마킹과 성적서</span><i></i></button></div><div class="sw-hint" style="opacity: 0;"><span>스크롤해서 공정을 따라가 보세요</span><i></i></div></div></div>
   </section>
 
   <section class="section" id="tech" aria-labelledby="tech-h">
@@ -298,6 +382,9 @@
   </div>
 </footer>
 
+<script src="scroll-world/ngt-film.js"></script>
+<script src="scroll-world/config.js"></script>
+<script>mountNgtFilm(document.getElementById('film-world'), window.NGT_SCROLL_WORLD);</script>
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>

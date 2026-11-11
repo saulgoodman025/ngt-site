@@ -5,3 +5,5 @@ shots/
 work/*.png
 work/*_view.jpg
 work/src-site/
+work/vid/*.mp4
+work/vid/*_last.png

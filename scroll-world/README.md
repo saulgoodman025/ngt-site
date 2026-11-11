@@ -1,21 +1,23 @@
-# NGT scroll-world 영상 체인 — 렌더 대기 상태
+# NGT 공정 영상 (scroll-world)
 
-결정 사항은 `work/BRIEF.md`. 오늘 완료된 것: 5개 장면 스틸(`assets/img/ch1..5.jpg`, 원본 `work/still_*.png`),
-스크럽 엔진(`scrub-engine.js`), 엔진 설정(`config.js`). **영상 레그 5개는 아직 렌더되지 않았습니다.**
+스크롤로 재생되는 카메라 비행 영상입니다. 도면 검토 → CAM 공정 설계 → 5축 가공 → CMM 검사 → 완성 부품을
+한 번의 연속 전진 테이크로 지나갑니다. 페이지의 `#process` 섹션에 들어 있습니다.
 
-## 왜 아직인가
-Higgsfield 계정이 free 플랜이라 영상 모델(seedance_2_0)이 "Requires basic plan or higher"로 거부됩니다
-(2026-11-10 확인, 과금 없음). 이미지도 z_image 한 모델만 허용됩니다.
+## 파일
+- `ngt-film.js` — scroll-world 스크럽 엔진을 페이지의 한 섹션 안에서 동작하도록 고친 버전
+  (고정 대신 sticky, 섹션 기준 스크롤, 장면이 실제로 보이는 구간에 맞춘 문구 타이밍).
+- `scrub-engine.js` — 원본 엔진(수정 없음, 참고용).
+- `config.js` — 5개 구간과 문구 설정.
+- `assets/vid/legN.mp4` — 1080p 데스크톱용, `legN-m.mp4` — 720p 모바일용(가로 영상의 가운데 크롭으로 보임).
+- `assets/img/filmN.jpg` — 각 구간의 첫 프레임(포스터, 모션 줄이기 설정 시 사용).
+- `work/vid/` — 원본 렌더, 마지막 프레임, 받기·인코딩 스크립트.
 
-## 플랜 업그레이드 후 실행 순서 (아키텍처 A, 연속 전진 테이크)
-1. leg0: start_image = 장면 1 스틸(job 0b36cfb6-2b6e-4554-8bbe-7aad10fed172), end_image 없음.
-2. leg i (1..4): start_image = **이전 레그의 실제 마지막 프레임**(`ffmpeg -sseof -0.15 -i leg{i-1}.mp4 -frames:v 1 -q:v 2 last.png`,
-   업로드 후 media_id 사용). 프롬프트는 BRIEF.md의 LEG PLAN + "전진 settle" 핸드오프 문구 유지.
-3. 각 레그의 마지막 프레임을 눈으로 확인한 뒤 다음 레그 생성(역방향·미완 오비트면 재롤).
-4. 인코딩: `ffmpeg -i src.mp4 -an -vf "unsharp=5:5:0.8:5:5:0.0" -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -g 8 -keyint_min 8 -sc_threshold 0 -movflags +faststart assets/vid/legN.mp4`
-5. 페이지에 `scrub-engine.js` + `config.js`를 로드하고 `mountScrollWorld(container, window.NGT_SCROLL_WORLD)`.
+## 렌더 방식 (2026-11-11, Higgsfield seedance_2_0, 1080p std, 8초, 구간당 96크레딧)
+각 구간은 "현재 장면에서 밀고 들어감 → 이동 → 다음 장면 도착" 구조입니다.
+- 시작 프레임: 0구간은 장면 1 스틸, 이후 구간은 **이전 구간의 실제 마지막 프레임**(이음매가 프레임 단위로 일치).
+- 도착 프레임: 다음 장면의 승인된 스틸. 마지막 구간은 도착 프레임 없이 임펠러 주위를 도는 피날레.
+- 480p 테스트 1회(8크레딧) 후 5구간 모두 재롤 없이 통과. 합계 488크레딧.
 
-## 예상 비용 (2026-11-10 견적)
-- 720p fast 8초: 레그당 20크레딧 → 5레그 100 + 재롤 여유 ≈ 115크레딧 (Basic 플랜 이상)
-- 1080p std 8초: 레그당 96크레딧 → ≈ 550크레딧 (Plus 플랜 이상)
-- 네트워크: 업로드 호스트 `upload.higgsfield.ai`를 환경 허용 목록에 추가해야 프레임 업로드 가능.
+## 다시 렌더할 때
+한 구간을 다시 만들면 그 뒤 구간들의 시작 프레임이 달라지므로 뒤 구간도 다시 렌더해야 이음매가 맞습니다.
+모바일 전용 세로(9:16) 체인은 아직 없습니다(영상 비용 약 2배).

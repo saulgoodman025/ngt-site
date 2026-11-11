@@ -1,51 +1,25 @@
 {
- "start": "2026-11-10T14:37:50.882Z",
+ "start": "2026-11-11T04:18:05.857Z",
  "round": 1,
  "idle": 0,
  "errors": 0,
- "status": "pass",
+ "status": "done",
  "history": [
   {
-   "at": "2026-11-10T15:05:47.340Z",
+   "at": "2026-11-11T04:21:02.891Z",
    "mode": "manual",
    "status": "fail",
-   "fails": 13,
+   "fails": 9,
    "round": 1,
    "reused": false,
    "stopHookActive": false
   },
   {
-   "at": "2026-11-10T15:17:04.458Z",
-   "mode": "manual",
-   "status": "pass",
-   "fails": 0,
-   "round": 1,
-   "reused": false,
-   "stopHookActive": false
-  },
-  {
-   "at": "2026-11-10T15:18:15.580Z",
-   "mode": "hook",
-   "host": "claude",
-   "decision": "allow",
-   "reason": "no build is active here",
-   "stopHookActive": false
-  },
-  {
-   "at": "2026-11-10T15:20:08.348Z",
-   "mode": "hook",
-   "host": "claude",
-   "decision": "allow",
-   "reason": "no build is active here",
-   "stopHookActive": false
-  },
-  {
-   "at": "2026-11-10T15:21:03.706Z",
-   "mode": "hook",
-   "host": "claude",
-   "decision": "allow",
-   "reason": "no build is active here",
-   "stopHookActive": false
+   "at": "2026-11-11T04:21:15.475Z",
+   "mode": "done",
+   "status": "done",
+   "reason": "The client asked for the scroll-world film by name: a scroll-scrubbed camera flight through the whole process. Its pinned nine-screen section is that film; ever",
+   "round": 1
   }
  ],
  "max": 3,
@@ -57,18 +31,35 @@
   "category": "5축·다축 정밀가공",
   "primary": "견적 문의하기",
   "rounds": 3,
-  "start": "2026-11-10T14:37:50.882Z",
+  "start": "2026-11-11T04:18:05.857Z",
   "by": "gate.mjs --start"
  },
  "manual": true,
- "roundKey": "ab69c8ef670bc78a:0c8e6689",
+ "roundKey": "825a26032e22b5c9:23e13b2a",
  "roundFree": false,
  "idleFree": false,
  "blockKey": null,
- "fp": "c48d54ae75f26445",
+ "fp": "825a26032e22b5c9",
  "page": "index.html",
  "found": {
   "fails": [
+   {
+    "check": "pinned",
+    "where": "div#film-world > div.sw-pin \"01 / 05 도면·공차 검토 가공은 도면 검토에서 시작합니다 형상과 기\"",
+    "msg": "held on screen for 8 screens of scroll (position: sticky) while the page moves on",
+    "fix": "let the section scroll with the page",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "pinned"
+    ],
+    "wheres": [
+     "div#film-world > div.sw-pin \"01 / 05 도면·공차 검토 가공은 도면 검토에서 시작합니다 형상과 기\""
+    ]
+   },
    {
     "check": "no-visual",
     "where": "section#history \"2005년부터 이어 온 연혁\"",
@@ -136,6 +127,139 @@
     ]
    },
    {
+    "check": "empty-area",
+    "where": "section#process \"도면에서 성적서까지, 다섯 공정\"",
+    "msg": "87% of the section is empty: 5680px of empty rows between its content, 17% beside content that covers under half the container, in its 8100px of rows (WARN over 35%, FAIL over 50%)",
+    "fix": "fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "empty-area"
+    ],
+    "wheres": [
+     "section#process \"도면에서 성적서까지, 다섯 공정\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+    "msg": "the section is 8100px tall (9 screens), 6300px over two screens (1800px): every section after the hero is one screen or two, 2px either way (SR-2)",
+    "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height",
+     "screen-height"
+    ],
+    "wheres": [
+     "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+     "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\""
+    ]
+   },
+   {
+    "check": "section-air",
+    "where": "section#process / section#tech",
+    "msg": "7592px of air between the content of these two sections: 128-480px (64-600px WARN) (SR-3)",
+    "fix": "keep 128-480px of air between the content of neighbouring sections (112-420px on a phone): the sections' padding (--padt, --padb)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-air"
+    ],
+    "wheres": [
+     "section#process / section#tech"
+    ]
+   },
+   {
+    "check": "section-air",
+    "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+    "msg": "the content fills 4% of the section's height (331 of 8100px): 55% or more (40% WARN) (SR-3)",
+    "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-air"
+    ],
+    "wheres": [
+     "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+    "msg": "the content of section 2 runs 80px from the left and 64px from the right (read from its outermost blocks: no .wrap): 80 and 64px are not one margin (one container, equal margins, 2px either way) (SR-6)",
+    "fix": "use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#film-world \"도면·공차 검토형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법\"",
+    "msg": "a box runs 0-1440px, outside the container lines of section 2 at 80-1376px: full width is for background layers and grounds only (SR-6)",
+    "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#film-world \"도면·공차 검토형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법\""
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "main#top > section.hero.hero--film / section#process",
+    "msg": "352px between these sections, +150% against the median 141px of gaps at a change of ground",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "main#top > section.hero.hero--film / section#process"
+    ]
+   },
+   {
+    "check": "sparse",
+    "where": "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\"",
+    "msg": "its content fills 4% of its screen; merge it or give it its visual (0.55 is the aim)",
+    "fix": "fill the section or make it a screen shorter",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "sparse"
+    ],
+    "wheres": [
+     "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\""
+    ]
+   },
+   {
     "check": "hero-lines",
     "where": "section.hero h1",
     "msg": "the check fills the h1 to 42 characters (this hero's maxChars in heroes.json), not the page's own: it takes 5 lines at 1440, 3 at most",
@@ -166,28 +290,6 @@
     "from": "consistency"
    },
    {
-    "check": "pinned",
-    "where": "section#process > div.wrap.mo-ph \"도면에서 성적서까지, 다섯 공정 부품 하나가 공장에 들어와 나가기까지의 \"",
-    "msg": "held on screen for 3 screens of scroll (position: sticky) while the page moves on (inside a dealt moment's section, [data-moment]: expected on every kind, two moments at most, house rule; its still is judged under reduced motion)",
-    "fix": "let the section scroll with the page",
-    "widths": [
-     1440,
-     390
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "cta",
-    "where": "section#process \"도면에서 성적서까지, 다섯 공정\"",
-    "msg": "a section over 1.5 screens long with no link or button in it",
-    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
-    "widths": [
-     1440,
-     390
-    ],
-    "from": "consistency"
-   },
-   {
     "check": "copy-headline",
     "where": "h1#hero-h \"오산의 5축·다축 정밀가공 공장\"",
     "msg": "the h1 has 1 word (2 to 8 read at a glance)",
@@ -209,28 +311,19 @@
    },
    {
     "check": "section-gaps",
-    "where": "main#top > section.hero.hero--film / section#process",
-    "msg": "158px between these sections, -42% against the median 271px",
-    "fix": "use one gap between sections (all within 25% of each other)",
-    "widths": [
-     1440
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "section-gaps",
     "where": "section#process / section#tech",
-    "msg": "142px between these sections, -48% against the median 271px",
+    "msg": "466px between these sections, +37% against the median 340px of gaps at a change of ground",
     "fix": "use one gap between sections (all within 25% of each other)",
     "widths": [
-     1440
+     1440,
+     390
     ],
     "from": "consistency"
    },
    {
     "check": "section-gaps",
     "where": "section#industries / section#capacity",
-    "msg": "182px between these sections, -33% against the median 271px",
+    "msg": "182px between these sections, -43% against the median 318px",
     "fix": "use one gap between sections (all within 25% of each other)",
     "widths": [
      1440
@@ -239,21 +332,12 @@
    },
    {
     "check": "section-gaps",
-    "where": "section#history / section#quality",
-    "msg": "340px between these sections, +25% against the median 271px",
+    "where": "main#top > section.hero.hero--film / section#process",
+    "msg": "uneven space at the edge of a band: 64px outside its edge, 277px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
     "fix": "use one gap between sections (all within 25% of each other)",
     "widths": [
-     1440
-    ],
-    "from": "consistency"
-   },
-   {
-    "check": "section-gaps",
-    "where": "section#quality / section#inquiry",
-    "msg": "343px between these sections, +27% against the median 271px",
-    "fix": "use one gap between sections (all within 25% of each other)",
-    "widths": [
-     1440
+     1440,
+     390
     ],
     "from": "consistency"
    },
@@ -279,6 +363,17 @@
     "from": "consistency"
    },
    {
+    "check": "visual-caption",
+    "where": "div#film-world > div.sw-pin > div.sw-hint > span \"스크롤해서 공정을 따라가 보세요\"",
+    "msg": "a small 14px line is laid over the lower half of the picture film0.jpg: \"스크롤해서 공정을 따라가 보세요\"; no caption or description under any image, render or visual (house rule)",
+    "fix": "take the line away: no caption or description under, over or on any image, render or visual; a licence credit goes in one footer line",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
     "check": "skip-link",
     "where": "header.nav.nav--centre > div.wrap.nav__bar > a.skip-link:nth-of-type(1) \"본문으로 건너뛰기\"",
     "msg": "the first Tab stop is \"본문으로 건너뛰기\", not a skip link: a keyboard user tabs through the whole nav on every visit",
@@ -293,6 +388,66 @@
     "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"견적 문의하기\"",
     "msg": "\"견적 문의하기\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
     "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "container-edges",
+    "where": "div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(1) > i",
+    "msg": "a box runs 1390-1403px, outside the container lines of section 2 at 80-1376px: full width is for background layers and grounds only (it sits in a part held on screen as the page scrolls: told as a WARN) (SR-6)",
+    "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "container-edges",
+    "where": "div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(2) > i",
+    "msg": "a box runs 1392-1401px, outside the container lines of section 2 at 80-1376px: full width is for background layers and grounds only (it sits in a part held on screen as the page scrolls: told as a WARN) (and 8 more like it: div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(3) > i, div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(4) > i, div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(5) > i) (SR-6)",
+    "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "container-edges",
+    "where": "div.sw-copylayer > article.sw-copy:nth-of-type(1) > ul.sw-copy__tags > li:nth-of-type(1) \"DFM\"",
+    "msg": "1 text block starts on a left line at x 95, 15px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (it sits in a part held on screen as the page scrolls: told as a WARN) (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "row-lines",
+    "where": "div#film-world > div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(1) \"도면·공차 검토\"",
+    "msg": "\"도면·공차 검토\" ends at 1400px, past the container's right line at 1376px (it sits in a part held on screen as the page scrolls: told as a WARN) (SR-7)",
+    "fix": "end it at the container's right line",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "row-lines",
+    "where": "div#film-world > div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(2) \"5축 공정 설계\"",
+    "msg": "\"5축 공정 설계\" ends at 1400px, past the container's right line at 1376px (it sits in a part held on screen as the page scrolls: told as a WARN) (SR-7)",
+    "fix": "end it at the container's right line",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "row-lines",
+    "where": "div#film-world > div.sw-pin > div.sw-route > button.sw-route__dot:nth-of-type(3) \"동시 5축 가공\"",
+    "msg": "\"동시 5축 가공\" ends at 1400px, past the container's right line at 1376px (it sits in a part held on screen as the page scrolls: told as a WARN) (and 2 more like it: \"CMM·3D 정밀 검사\", \"마킹과 성적서\") (SR-7)",
+    "fix": "end it at the container's right line",
     "widths": [
      1440
     ],
@@ -320,11 +475,162 @@
   ],
   "crashed": [],
   "seconds": {
-   "consistency": 135,
+   "consistency": 172,
    "layout": 3
   }
  },
- "open": [],
+ "open": [
+  {
+   "check": "pinned",
+   "where": "div#film-world > div.sw-pin \"01 / 05 도면·공차 검토 가공은 도면 검토에서 시작합니다 형상과 기\"",
+   "msg": "held on screen for 8 screens of scroll (position: sticky) while the page moves on",
+   "fix": "let the section scroll with the page",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "pinned"
+   ],
+   "wheres": [
+    "div#film-world > div.sw-pin \"01 / 05 도면·공차 검토 가공은 도면 검토에서 시작합니다 형상과 기\""
+   ]
+  },
+  {
+   "check": "empty-area",
+   "where": "section#process \"도면에서 성적서까지, 다섯 공정\"",
+   "msg": "87% of the section is empty: 5680px of empty rows between its content, 17% beside content that covers under half the container, in its 8100px of rows (WARN over 35%, FAIL over 50%)",
+   "fix": "fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "empty-area"
+   ],
+   "wheres": [
+    "section#process \"도면에서 성적서까지, 다섯 공정\""
+   ]
+  },
+  {
+   "check": "section-height",
+   "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+   "msg": "the section is 8100px tall (9 screens), 6300px over two screens (1800px): every section after the hero is one screen or two, 2px either way (SR-2)",
+   "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height",
+    "screen-height"
+   ],
+   "wheres": [
+    "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+    "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\""
+   ]
+  },
+  {
+   "check": "section-air",
+   "where": "section#process / section#tech",
+   "msg": "7592px of air between the content of these two sections: 128-480px (64-600px WARN) (SR-3)",
+   "fix": "keep 128-480px of air between the content of neighbouring sections (112-420px on a phone): the sections' padding (--padt, --padb)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-air"
+   ],
+   "wheres": [
+    "section#process / section#tech"
+   ]
+  },
+  {
+   "check": "section-air",
+   "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+   "msg": "the content fills 4% of the section's height (331 of 8100px): 55% or more (40% WARN) (SR-3)",
+   "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-air"
+   ],
+   "wheres": [
+    "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\"",
+   "msg": "the content of section 2 runs 80px from the left and 64px from the right (read from its outermost blocks: no .wrap): 80 and 64px are not one margin (one container, equal margins, 2px either way) (SR-6)",
+   "fix": "use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "section#process \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준면, 관리 포인\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#film-world \"도면·공차 검토형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법\"",
+   "msg": "a box runs 0-1440px, outside the container lines of section 2 at 80-1376px: full width is for background layers and grounds only (SR-6)",
+   "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#film-world \"도면·공차 검토형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법\""
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "main#top > section.hero.hero--film / section#process",
+   "msg": "352px between these sections, +150% against the median 141px of gaps at a change of ground",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "main#top > section.hero.hero--film / section#process"
+   ]
+  },
+  {
+   "check": "sparse",
+   "where": "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\"",
+   "msg": "its content fills 4% of its screen; merge it or give it its visual (0.55 is the aim)",
+   "fix": "fill the section or make it a screen shorter",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "sparse"
+   ],
+   "wheres": [
+    "#process section.film \"도면에서 성적서까지, 다섯 공정 도면·공차 검토형상과 기준\""
+   ]
+  }
+ ],
  "waived": [
   {
    "check": "no-visual",
@@ -415,6 +721,7 @@
    "reason": "The stress test fills the h1 to 42 Latin-width characters; Hangul glyphs are full-width, and the page's own h1 is 17 characters on two lines at every width."
   }
  ],
- "warnCount": 16,
- "at": "2026-11-10T15:17:04.458Z"
+ "warnCount": 19,
+ "at": "2026-11-11T04:21:15.475Z",
+ "doneReason": "The client asked for the scroll-world film by name: a scroll-scrubbed camera flight through the whole process. Its pinned nine-screen section is that film; every open FAIL is on that section."
 }

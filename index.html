@@ -41,13 +41,33 @@
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
 <link rel="modulepreload" href="assets/moments/moments.js">
 <link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/photo-chapters/moment.js">
 <link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
 <style>
   /* page CSS: the client's logo in the bar, and the word-break Korean needs */
   .nav__logo img { height: 28px; width: auto; display: block; }
   h1, h2, h3, p, li, dd, dt, label, a { word-break: keep-all; }
+  /* the process film (scroll-world): a dark, full-bleed scene; its tokens theme scroll-world/ngt-film.js */
+  main > section.film { position: relative; display: block; height: auto; min-height: 0; padding: 0; background: #0a0a0a; }
+  .film__world { --sw-bg: #0a0a0a; --sw-ink: #f1efe9; --sw-ink-soft: #a9a6a0; --sw-accent: #6fb8cc;
+    --sw-font-display: var(--font-display); --sw-font-body: var(--font-text); }
+  .film__text { margin: 0; padding: var(--padt) var(--gut) var(--padb); list-style: none; color: #f1efe9; display: grid; gap: var(--s-6); max-width: 720px; }
+  .film__text h3 { color: inherit; } .film__text p { color: #c9c6c0; }
+  .sw-root > .film__text { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); }
+  .film .sw-scene__video, .film .sw-scene__still { width: 100%; height: 100%; max-width: none; }
+  .film .sw-copy { left: var(--gut); }
+  .film .sw-copy { width: min(46vw, 600px); }
+  .film .sw-copy__title { font-size: clamp(2rem, 3.9vw, 3.25rem); line-height: 1.12; margin: 12px 0 0; text-wrap: balance; font-weight: 400; letter-spacing: var(--display-tracking); word-break: keep-all; }
+  .film .sw-copy__eyebrow { font-weight: 500; letter-spacing: 0; text-transform: none; font-size: var(--t-small); }
+  .film .sw-copy__num { font-family: var(--font-text); letter-spacing: 0; font-size: var(--t-small); }
+  .film .sw-copy__body { word-break: keep-all; margin-top: 18px; font-size: var(--t-lead); line-height: 1.6; color: #e4e1db; }
+  .film .sw-copy__tags { margin-top: 24px; }
+  .film .sw-copy__eyebrow { margin-top: 16px; }
+  .film .sw-copy__tags li { color: #f1efe9; background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .18); font-weight: 500; }
+  .film .sw-btn--primary { color: #fff; background: var(--action); border-radius: var(--r-btn); }
+  .film .sw-route__label { color: #0a0a0a; }
+  .film .sw-hint { letter-spacing: 0; text-transform: none; font-size: var(--t-small); }
   /* the peek photograph keeps a ratio once the split stacks */
+  @media (max-width: 860px) { .film .sw-copy { width: auto; transform: none !important; } }
   @media (max-width: 1023px) { #industries .wrap > .fill { flex: none; } #industries .frame--fill { flex: none; height: auto; aspect-ratio: 4 / 3; } }
   /* a spec row's value wraps inside its column instead of pushing the page wide */
   .rows--spec > li { grid-template-columns: auto minmax(0, 1fr); }
@@ -60,7 +80,7 @@
 <!-- type: service (site-kind other)
      deal: hero film, nav nav-centre, close close-type, footer footer-columns, rhythm space, buttons block, mark the client's logo
      palette putty-black-teal, type IBM Plex Sans KR (Hangul; the dealt Instrument Sans has none)
-     moments: photo-chapters in #process (the five steps of a job, one photograph each), word-highlight in #company -->
+     moments: word-highlight in #company; the scroll-world process film in #process (asked for by the brief) -->
 
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
@@ -100,37 +120,19 @@
     </div></div>
   </section>
 
-  <!-- photo-chapters: the five steps of one job. These five stills are also the scene set of the scroll-world
-       camera chain (work/BRIEF.md); the rendered chain replaces this section's photographs with the film. -->
-  <section class="section" id="process" data-moment="photo-chapters" aria-labelledby="process-h">
-    <div class="wrap mo-ph">
-      <div class="mo-ph__head"><h2 id="process-h">도면에서 성적서까지, 다섯 공정</h2><p>부품 하나가 공장에 들어와 나가기까지의 순서입니다. 모든 공정이 오산 자가 공장 안에서 이어집니다.</p></div>
-      <ol class="mo-ph__list">
-        <li class="mo-ph__ch">
-          <figure class="mo-ph__pic"><img src="assets/img/ch1.jpg" alt="CAD 형상이 떠 있는 모니터와 측정 공구, 샘플 부품이 놓인 검토 책상" width="1600" height="900" data-source="illustration" data-subject="도면 검토실"></figure>
-          <h3>도면·공차 검토</h3>
-          <p>형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법과 소재 변형까지 제조성을 검토합니다.</p>
-        </li>
-        <li class="mo-ph__ch">
-          <figure class="mo-ph__pic"><img src="assets/img/ch2.jpg" alt="5축 공구 경로 시뮬레이션이 표시된 CAM 작업 화면과 공구 홀더" width="1600" height="900" data-source="illustration" data-subject="CAM 공정 설계"></figure>
-          <h3>5축 공정 설계</h3>
-          <p>고정, 공구 접근, 가공 순서를 정합니다. 자체 CAM 로직으로 포스트 프로세싱을 직접 제어합니다.</p>
-        </li>
-        <li class="mo-ph__ch">
-          <figure class="mo-ph__pic"><img src="assets/img/ch3.jpg" alt="5축 머시닝센터 안에서 절삭 중인 금속 부품" width="1600" height="900" data-source="illustration" data-subject="5축 가공"></figure>
-          <h3>동시 5축 가공</h3>
-          <p>독일·일본산 동시 5축 머시닝센터로 알루미늄, SUS, 티타늄의 복합 형상을 깎습니다.</p>
-        </li>
-        <li class="mo-ph__ch">
-          <figure class="mo-ph__pic"><img src="assets/img/ch4.jpg" alt="3차원 좌표측정기의 프로브가 가공된 부품을 측정하는 모습" width="1600" height="900" data-source="illustration" data-subject="CMM 측정"></figure>
-          <h3>CMM·3D 정밀 검사</h3>
-          <p>3차원 좌표측정기와 3D 스캐너, 조도 측정기로 미크론 단위 공차를 확인합니다.</p>
-        </li>
-        <li class="mo-ph__ch">
-          <figure class="mo-ph__pic"><img src="assets/img/ch5.jpg" alt="가공을 마친 정밀 금속 부품들" width="1600" height="900" data-source="illustration" data-subject="완성 부품"></figure>
-          <h3>마킹과 성적서 발행</h3>
-          <p>레이저 마킹으로 부품을 식별하고, 로트별 검사 이력과 함께 검사 성적서를 발행합니다.</p>
-        </li>
+  <!-- THE PROCESS FILM (scroll-world): five camera legs scrubbed by scroll, one continuous forward take
+       through the five steps of a job. The user's brief asks for this film by name; it is the page's one
+       scroll scene. The list below is the same content as text, for readers and for when scripts are off;
+       scroll-world/ngt-film.js mounts the film over it. Under reduced motion the stills cross-dissolve. -->
+  <section class="film" id="process" aria-labelledby="process-h">
+    <h2 class="sr-only" id="process-h">도면에서 성적서까지, 다섯 공정</h2>
+    <div class="film__world" id="film-world">
+      <ol class="film__text">
+        <li><h3>도면·공차 검토</h3><p>형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법과 소재 변형까지 제조성을 검토합니다.</p></li>
+        <li><h3>5축 공정 설계</h3><p>고정, 공구 접근, 가공 순서를 정합니다. 자체 CAM 로직으로 포스트 프로세싱을 직접 제어합니다.</p></li>
+        <li><h3>동시 5축 가공</h3><p>독일·일본산 동시 5축 머시닝센터로 알루미늄, SUS, 티타늄의 복합 형상을 깎습니다.</p></li>
+        <li><h3>CMM·3D 정밀 검사</h3><p>3차원 좌표측정기와 3D 스캐너, 조도 측정기로 미크론 단위 공차를 확인합니다.</p></li>
+        <li><h3>마킹과 성적서 발행</h3><p>레이저 마킹으로 부품을 식별하고, 로트별 검사 이력과 함께 검사 성적서를 발행합니다.</p></li>
       </ol>
     </div>
   </section>
@@ -299,6 +301,9 @@
   </div>
 </footer>
 
+<script src="scroll-world/ngt-film.js"></script>
+<script src="scroll-world/config.js"></script>
+<script>mountNgtFilm(document.getElementById('film-world'), window.NGT_SCROLL_WORLD);</script>
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
