@@ -46,6 +46,18 @@
   /* page CSS: the client's logo in the bar, and the word-break Korean needs */
   .nav__logo img { height: 28px; width: auto; display: block; }
   h1, h2, h3, p, li, dd, dt, label, a { word-break: keep-all; }
+  /* the film's opening title card */
+  .film__opening { position: relative; min-height: 100svh; color: #dfe9f7; }
+  .film__opening-ground { position: absolute; inset: 0; transform-origin: 50% 55%; background:
+    linear-gradient(rgb(140 180 235 / .055) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgb(140 180 235 / .055) 1px, transparent 1px) 0 0 / 56px 56px,
+    radial-gradient(120% 90% at 30% 40%, #0c1c36 0%, #071224 55%, #050c18 100%); }
+  .film__opening-words { position: absolute; left: var(--gut); right: var(--gut); top: 50%; translate: 0 -46%; display: grid; gap: clamp(20px, 3vh, 36px); }
+  .film__logo { width: clamp(88px, 8vw, 124px); height: auto; }
+  .film__opening h1 { margin: 0; display: grid; gap: clamp(14px, 2.2vh, 26px); max-width: none; }
+  .film__motto { font: 600 clamp(2.6rem, 8.2vw, 7.5rem)/1.02 var(--font-display); letter-spacing: -0.035em;
+    background: linear-gradient(90deg, #0b86cc 0%, #1f6fc0 38%, #7fb2e2 72%, #f2f8ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
+  .film__line { font: 500 clamp(1.25rem, 2.7vw, 2.4rem)/1.32 var(--font-display); letter-spacing: -0.01em; color: #a9b9d0; }
   /* the process film (scroll-world): a dark, full-bleed scene; its tokens theme scroll-world/ngt-film.js */
   main > section.film { position: relative; display: block; height: auto; min-height: 0; padding: 0; background: #0a0a0a; }
   .film__world { --sw-bg: #0a0a0a; --sw-ink: #f1efe9; --sw-ink-soft: #a9a6a0; --sw-accent: #6fb8cc;
@@ -78,7 +90,7 @@
 </head>
 <body>
 <!-- type: service (site-kind other)
-     deal: hero film, nav nav-centre, close close-type, footer footer-columns, rhythm space, buttons block, mark the client's logo
+     deal: hero the film's opening title card (asked for by the client; the dealt film-frame hero is retired), nav nav-centre, close close-type, footer footer-columns, rhythm space, buttons block, mark the client's logo
      palette putty-black-teal, type IBM Plex Sans KR (Hangul; the dealt Instrument Sans has none)
      moments: word-highlight in #company; the scroll-world process film in #process (asked for by the brief) -->
 
@@ -103,30 +115,21 @@
 </header>
 
 <main id="top">
-  <!-- HERO film: the cinema frame. Client slot: the process film (the scroll-world camera chain, once rendered)
-       plays in this frame; until then the frame holds its poster and no play control. -->
-  <section class="hero hero--film" data-enter aria-labelledby="hero-h">
-    <div class="wrap"><div class="hero-text hero__in">
-      <div class="hero__media hero__fill">
-        <img src="assets/img/hero.jpg" alt="5축 머시닝센터가 늘어선 정밀가공 공장 내부" style="--ly-pos: 50% 50%; --ly-pos-phone: 50% 50%" fetchpriority="high" data-source="illustration" data-subject="5축 머시닝센터 가공 현장">
-        <div class="hero__over">
-          <div>
-            <h1 id="hero-h">오산의 5축·다축 정밀가공 공장</h1>
-            <p class="hero__lead">2005년부터 도면 검토, 5축 가공, CMM·3D 측정을 자가 공장 한 곳에서 합니다. 알루미늄, SUS, 티타늄 부품을 시제품부터 양산까지 맡습니다.</p>
-            <div class="btn-row"><a class="btn btn--primary" href="#inquiry">견적 문의하기</a><a class="btn btn--secondary" href="#process">공정 보기</a></div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-  </section>
-
   <!-- THE PROCESS FILM (scroll-world): five camera legs scrubbed by scroll, one continuous forward take
        through the five steps of a job. The user's brief asks for this film by name; it is the page's one
        scroll scene. The list below is the same content as text, for readers and for when scripts are off;
        scroll-world/ngt-film.js mounts the film over it. Under reduced motion the stills cross-dissolve. -->
-  <section class="film" id="process" aria-labelledby="process-h">
-    <h2 class="sr-only" id="process-h">도면에서 성적서까지, 다섯 공정</h2>
+  <section class="film" id="process" aria-labelledby="hero-h">
     <div class="film__world" id="film-world">
+      <!-- the opening: the company's motto as the page's first screen, over the film's first frame -->
+      <div class="film__opening" data-film-opening>
+        <div class="film__opening-ground" data-film-opening-ground></div>
+        <div class="film__opening-words" data-film-opening-words>
+          <img class="film__logo" src="assets/img/logo.svg" alt="NGT 뉴젠텍" width="124" height="44">
+          <h1 id="hero-h"><span class="film__motto" lang="en">Engineering the Next</span><span class="film__line">5축·다축 정밀가공<br>복합 형상 제조 대응</span></h1>
+        </div>
+      </div>
+      <h2 class="sr-only" id="process-h">도면에서 성적서까지, 다섯 공정</h2>
       <ol class="film__text">
         <li><h3>도면·공차 검토</h3><p>형상과 기준면, 관리 포인트를 먼저 확인합니다. 고정 방법과 소재 변형까지 제조성을 검토합니다.</p></li>
         <li><h3>5축 공정 설계</h3><p>고정, 공구 접근, 가공 순서를 정합니다. 자체 CAM 로직으로 포스트 프로세싱을 직접 제어합니다.</p></li>

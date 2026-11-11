@@ -5,6 +5,7 @@
    on a full-bleed container that replaces that section's photographs. */
 window.NGT_SCROLL_WORLD = {
   diveScroll: 1.6,   // 5 x 1.6 = 8 screens of scroll + the pinned screen = 9 whole screens
+  opening: { scroll: 1 },   // one screen of scroll for the title card before leg 0: 1 + 8 + 1 = 10 screens
   crossfade: 0.08,
   arriveAt: 0.42,   // the camera has reached the next scene by this share of a leg
   leaveAt: 0.36,    // and leaves the current scene after this share

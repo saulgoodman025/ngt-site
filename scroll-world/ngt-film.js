@@ -76,8 +76,11 @@ function mountNgtFilm(container, config) {
   const track = el('div', 'sw-track');
 
   const pin = el('div', 'sw-pin');
-  [stage, copylayer, route, hint].forEach(n => pin.appendChild(n));
-  pin.setAttribute('aria-hidden', 'true');   // the same words are in the page's own list
+  [stage, copylayer, route, hint].forEach(n => { n.setAttribute('aria-hidden', 'true'); pin.appendChild(n); });   // the same words are in the page's own list
+  // the opening title card: the page's own element (its h1 stays readable), pinned over the film's first frame
+  const openEl = container.querySelector('[data-film-opening]');
+  const OPEN = openEl ? ((config.opening && config.opening.scroll) || 1) : 0;
+  if (openEl) { openEl.classList.add('sw-opening'); pin.appendChild(openEl); }
   container.appendChild(pin);
   const baseY = () => container.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
 
@@ -129,7 +132,7 @@ function mountNgtFilm(container, config) {
     vh = window.innerHeight;
     laidOutW = window.innerWidth;
     stageX = window.innerWidth > 860 ? 4 : 0;
-    let off = 0;
+    let off = OPEN;
     SEGMENTS.forEach(s => { s.start = off * vh; off += s.w; s.end = off * vh; });
     totalW = off;
     container.style.height = (totalW * vh + vh) + 'px';   // +1vh: the pinned screen itself
@@ -169,6 +172,15 @@ function mountNgtFilm(container, config) {
   function read() {
     const y = (window.scrollY || window.pageYOffset) - baseY();
     const fade = CROSSFADE * vh;
+    if (openEl) {
+      const p = clamp(y / (OPEN * vh));
+      const words = openEl.querySelector('[data-film-opening-words]'), ground = openEl.querySelector('[data-film-opening-ground]');
+      if (words) { words.style.opacity = 1 - smooth(p / 0.42); words.style.transform = reduce ? 'none' : `translateY(${-p * 9}vh)`; }
+      if (ground) { ground.style.opacity = 1 - smooth((p - 0.18) / 0.82); ground.style.transform = reduce ? 'none' : `scale(${1 + p * 0.9})`; }
+      openEl.style.visibility = p >= 1 ? 'hidden' : 'visible';
+      stage.style.transform = reduce ? 'none' : `scale(${1 + 0.07 * (1 - smooth(p))})`;
+      route.style.opacity = smooth((p - 0.7) / 0.3);
+    }
     let ci = 0;
     for (let i = 0; i < NSEG; i++) if (y >= SEGMENTS[i].start) ci = i;
 
@@ -178,7 +190,7 @@ function mountNgtFilm(container, config) {
       const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
       s.target = s.linger ? lingerEase(local, s.linger) : local;
       let outside = 0;
-      if (y < s.start) outside = s.start - y; else if (y > s.end) outside = y - s.end;
+      if (y < s.start) outside = (i === 0 && OPEN) ? 0 : s.start - y; else if (y > s.end) outside = y - s.end;
       const op = smooth(1 - outside / fade);
       s.el.style.opacity = op; s.visible = op > 0.001;
       s.el.style.zIndex = (i === ci) ? '120' : String(100 + Math.round(op * 10));
@@ -195,7 +207,7 @@ function mountNgtFilm(container, config) {
     for (let i = 0; i < N; i++) {
       const seg = SECTIONS[i]._seg, len = seg.end - seg.start;
       const prev = i > 0 ? SECTIONS[i - 1]._seg : null;
-      const a = prev ? prev.start + ARRIVE * (prev.end - prev.start) : -Infinity;
+      const a = prev ? prev.start + ARRIVE * (prev.end - prev.start) : (OPEN ? seg.start - 0.22 * vh : -Infinity);
       const b = i === N - 1 ? Infinity : seg.start + LEAVE * len;
       const fw = 0.12 * len;
       const cop = smooth((y - a) / fw) * smooth((b - y) / fw);
@@ -330,7 +342,8 @@ function injectCSS() {
   .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
   .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
   .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
-  .sw-stage{position:absolute;inset:0;z-index:10;pointer-events:none;}
+  .sw-opening{position:absolute;inset:0;z-index:30;}
+  .sw-stage{position:absolute;inset:0;z-index:10;transform-origin:50% 50%;pointer-events:none;}
   .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
   .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
   .sw-scene__still{will-change:transform;} .sw-scene.has-clip .sw-scene__still{opacity:0;} .sw-scene__video{z-index:1;}
