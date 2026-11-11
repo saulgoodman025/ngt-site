@@ -1,11 +1,10 @@
 /* NGT scroll-world film: the config that mounts the scrub engine once the camera chain is rendered.
-   Architecture A (one continuous forward take): five legs, no connectors, crossfade 0.08.
+   Architecture A (one continuous forward take): an opening leg and five process legs, no connectors, crossfade 0.08.
    Today the page shows these five scenes as the photo-chapters section (#process in index.html);
    to switch, render the legs (README.md), encode them into assets/vid/, and mount this config
    on a full-bleed container that replaces that section's photographs. */
 window.NGT_SCROLL_WORLD = {
-  diveScroll: 1.6,   // 5 x 1.6 = 8 screens of scroll + the pinned screen = 9 whole screens
-  opening: { scroll: 1 },   // one screen of scroll for the title card before leg 0: 1 + 8 + 1 = 10 screens
+  diveScroll: 1.5,   // 6 legs x 1.5 = 9 screens of scroll + the pinned screen = 10 whole screens
   crossfade: 0.08,
   arriveAt: 0.42,   // the camera has reached the next scene by this share of a leg
   leaveAt: 0.36,    // and leaves the current scene after this share
@@ -15,6 +14,8 @@ window.NGT_SCROLL_WORLD = {
   hint: '스크롤해서 공정을 따라가 보세요',
   connectors: [],
   sections: [
+    // the opening leg: the title card's navy grid opens into the review room; no copy, no route dot
+    { id: 'opening', intro: true, still: 'assets/img/film-open.jpg', clip: 'assets/vid/open.mp4', clipMobile: 'assets/vid/open-m.mp4', arriveAt: 0.72 },
     { id: 'review', label: '도면·공차 검토', still: 'assets/img/film0.jpg', clip: 'assets/vid/leg0.mp4', clipMobile: 'assets/vid/leg0-m.mp4', accent: '#6fb8cc',
       eyebrow: '도면·공차 검토', title: '가공은 도면 검토에서 시작합니다',
       body: '형상과 기준면, 관리 포인트를 먼저 확인하고 제조성을 검토합니다.', tags: ['DFM', '공차 검토'] },

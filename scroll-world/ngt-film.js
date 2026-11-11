@@ -79,7 +79,8 @@ function mountNgtFilm(container, config) {
   [stage, copylayer, route, hint].forEach(n => { n.setAttribute('aria-hidden', 'true'); pin.appendChild(n); });   // the same words are in the page's own list
   // the opening title card: the page's own element (its h1 stays readable), pinned over the film's first frame
   const openEl = container.querySelector('[data-film-opening]');
-  const OPEN = openEl ? ((config.opening && config.opening.scroll) || 1) : 0;
+  const INTRO = !!(SECTIONS[0] && SECTIONS[0].intro);   // the opening is a rendered leg: the card's words ride over it
+  const OPEN = (openEl && !INTRO) ? ((config.opening && config.opening.scroll) || 1) : 0;
   if (openEl) { openEl.classList.add('sw-opening'); pin.appendChild(openEl); }
   container.appendChild(pin);
   const baseY = () => container.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
@@ -97,10 +98,13 @@ function mountNgtFilm(container, config) {
 
   // per-section copy / route / nav
   const copies = [], dots = [];
+  const STEPS = SECTIONS.filter(s => !s.intro).length; let step = 0;
   SECTIONS.forEach((s, i) => {
+    if (s.intro) { copies.push(null); dots.push(null); return; }
+    step++;
     const c = el('article', 'sw-copy'); c.style.setProperty('--sw-accent', s.accent || '');
     c.innerHTML =
-      `<span class="sw-copy__num">${pad(i + 1)} / ${pad(N)}</span>` +
+      `<span class="sw-copy__num">${pad(step)} / ${pad(STEPS)}</span>` +
       (s.eyebrow ? `<span class="sw-copy__eyebrow">${esc(s.eyebrow)}</span>` : '') +
       (s.title ? `<h3 class="sw-copy__title">${esc(s.title)}</h3>` : '') +
       (s.body ? `<p class="sw-copy__body">${esc(s.body)}</p>` : '') +
@@ -173,13 +177,21 @@ function mountNgtFilm(container, config) {
     const y = (window.scrollY || window.pageYOffset) - baseY();
     const fade = CROSSFADE * vh;
     if (openEl) {
-      const p = clamp(y / (OPEN * vh));
+      const s0 = SEGMENTS[0];
+      const p = INTRO ? clamp((y - s0.start) / (s0.end - s0.start)) : clamp(y / (OPEN * vh));
       const words = openEl.querySelector('[data-film-opening-words]'), ground = openEl.querySelector('[data-film-opening-ground]');
-      if (words) { words.style.opacity = 1 - smooth(p / 0.42); words.style.transform = reduce ? 'none' : `translateY(${-p * 9}vh)`; }
-      if (ground) { ground.style.opacity = 1 - smooth((p - 0.18) / 0.82); ground.style.transform = reduce ? 'none' : `scale(${1 + p * 0.9})`; }
-      openEl.style.visibility = p >= 1 ? 'hidden' : 'visible';
-      stage.style.transform = reduce ? 'none' : `scale(${1 + 0.07 * (1 - smooth(p))})`;
-      route.style.opacity = smooth((p - 0.7) / 0.3);
+      if (words) { words.style.opacity = 1 - smooth(p / (INTRO ? 0.3 : 0.42)); words.style.transform = reduce ? 'none' : `translateY(${-p * 9}vh)`; }
+      if (INTRO) {
+        // the card's ground is the leg's own first frame; keep the CSS ground only until that frame is on screen
+        if (ground) ground.style.opacity = (s0.ready || s0.img.complete) ? 0 : 1;
+        openEl.style.visibility = p >= 0.35 ? 'hidden' : 'visible';
+        route.style.opacity = smooth((p - 0.55) / 0.3);
+      } else {
+        if (ground) { ground.style.opacity = 1 - smooth((p - 0.18) / 0.82); ground.style.transform = reduce ? 'none' : `scale(${1 + p * 0.9})`; }
+        openEl.style.visibility = p >= 1 ? 'hidden' : 'visible';
+        stage.style.transform = reduce ? 'none' : `scale(${1 + 0.07 * (1 - smooth(p))})`;
+        route.style.opacity = smooth((p - 0.7) / 0.3);
+      }
     }
     let ci = 0;
     for (let i = 0; i < NSEG; i++) if (y >= SEGMENTS[i].start) ci = i;
@@ -207,12 +219,13 @@ function mountNgtFilm(container, config) {
     for (let i = 0; i < N; i++) {
       const seg = SECTIONS[i]._seg, len = seg.end - seg.start;
       const prev = i > 0 ? SECTIONS[i - 1]._seg : null;
-      const a = prev ? prev.start + ARRIVE * (prev.end - prev.start) : (OPEN ? seg.start - 0.22 * vh : -Infinity);
+      const arr = (i > 0 && SECTIONS[i - 1].arriveAt != null) ? SECTIONS[i - 1].arriveAt : ARRIVE;
+      const a = prev ? prev.start + arr * (prev.end - prev.start) : (OPEN ? seg.start - 0.22 * vh : -Infinity);
       const b = i === N - 1 ? Infinity : seg.start + LEAVE * len;
       const fw = 0.12 * len;
       const cop = smooth((y - a) / fw) * smooth((b - y) / fw);
       const mid = (Math.max(a, seg.start - len) + Math.min(b, seg.end)) / 2;
-      const c = copies[i];
+      const c = copies[i]; if (!c) continue;
       c.style.opacity = cop;
       c.style.transform = reduce ? 'none' : `translateY(calc(-50% + ${clamp((mid - y) / len, -1, 1) * 4}vh))`;
       c.style.pointerEvents = cop > 0.5 ? 'auto' : 'none';
@@ -222,7 +235,7 @@ function mountNgtFilm(container, config) {
     const near = clamp(((y - cur.start) / (cur.end - cur.start)) > ARRIVE - 0.05 ? cur.si + 1 : cur.si, 0, N - 1);
     if (near !== activeIndex) {
       activeIndex = near;
-      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      dots.forEach((d, k) => d && d.classList.toggle('is-active', k === near));
       nav.querySelectorAll('.sw-nav__item').forEach((n, k) => n.classList.toggle('is-active', k === near));
       container.style.setProperty('--sw-accent', SECTIONS[near].accent || '');
     }
@@ -342,7 +355,7 @@ function injectCSS() {
   .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
   .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
   .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
-  .sw-opening{position:absolute;inset:0;z-index:30;}
+  .sw-opening{position:absolute;inset:0;z-index:30;pointer-events:none;}
   .sw-stage{position:absolute;inset:0;z-index:10;transform-origin:50% 50%;pointer-events:none;}
   .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
   .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}

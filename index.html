@@ -11,7 +11,7 @@
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
-<meta name="theme-color" content="#dedad3">
+<meta name="theme-color" content="#071224">
 <!-- <link rel="canonical" href="https://newgt.co.kr/"> -->
 <meta name="site-kind" content="other">
 <meta name="page-type" content="service">
@@ -25,10 +25,11 @@
 <link rel="stylesheet" href="assets/icons/icon.css">
 <style>
 :root {
-  --p-bg: #dedad3; --p-surface: #d3cec6; --p-ink: #0a0a0a; --p-muted: #55514c;
-  --p-accent: #256f82; --p-accent-ink: #ffffff; --p-action: #256f82; --p-action-ink: #ffffff;
-  --p-inv-bg: #0a0a0a; --p-inv-surface: #151515; --p-inv-ink: #dedad3; --p-inv-muted: #84827e;
-  --p-inv-accent: #256f82; --p-inv-accent-ink: #ffffff; --p-inv-action: #256f82; --p-inv-action-ink: #ffffff;
+  /* the client's own ground: the navy of the opening title card, with the logo's blue as the action */
+  --p-bg: #071224; --p-surface: #0d1c35; --p-ink: #e8eef8; --p-muted: #9fb0c8;
+  --p-accent: #6fb1ee; --p-accent-ink: #071224; --p-action: #1a73c4; --p-action-ink: #ffffff;
+  --p-inv-bg: #050c18; --p-inv-surface: #0d1c35; --p-inv-ink: #e8eef8; --p-inv-muted: #9fb0c8;
+  --p-inv-accent: #6fb1ee; --p-inv-accent-ink: #071224; --p-inv-action: #1a73c4; --p-inv-action-ink: #ffffff;
   --font-display: "IBM Plex Sans KR", system-ui, sans-serif;
   --font-text: "IBM Plex Sans KR", system-ui, sans-serif;
   --display-weight: 400;
@@ -59,8 +60,8 @@
     background: linear-gradient(90deg, #0b86cc 0%, #1f6fc0 38%, #7fb2e2 72%, #f2f8ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
   .film__line { font: 500 clamp(1.25rem, 2.7vw, 2.4rem)/1.32 var(--font-display); letter-spacing: -0.01em; color: #a9b9d0; }
   /* the process film (scroll-world): a dark, full-bleed scene; its tokens theme scroll-world/ngt-film.js */
-  main > section.film { position: relative; display: block; height: auto; min-height: 0; padding: 0; background: #0a0a0a; }
-  .film__world { --sw-bg: #0a0a0a; --sw-ink: #f1efe9; --sw-ink-soft: #a9a6a0; --sw-accent: #6fb8cc;
+  main > section.film { position: relative; display: block; height: auto; min-height: 0; padding: 0; background: #071224; }
+  .film__world { --sw-bg: #071224; --sw-ink: #f1efe9; --sw-ink-soft: #a9a6a0; --sw-accent: #6fb8cc;
     --sw-font-display: var(--font-display); --sw-font-body: var(--font-text); }
   .film__text { margin: 0; padding: var(--padt) var(--gut) var(--padb); list-style: none; color: #f1efe9; display: grid; gap: var(--s-6); max-width: 720px; }
   .film__text h3 { color: inherit; } .film__text p { color: #c9c6c0; }
@@ -91,7 +92,7 @@
 <body>
 <!-- type: service (site-kind other)
      deal: hero the film's opening title card (asked for by the client; the dealt film-frame hero is retired), nav nav-centre, close close-type, footer footer-columns, rhythm space, buttons block, mark the client's logo
-     palette putty-black-teal, type IBM Plex Sans KR (Hangul; the dealt Instrument Sans has none)
+     palette the client's navy (the opening card's ground), type IBM Plex Sans KR (Hangul; the dealt Instrument Sans has none)
      moments: word-highlight in #company; the scroll-world process film in #process (asked for by the brief) -->
 
 <header class="nav nav--centre">
