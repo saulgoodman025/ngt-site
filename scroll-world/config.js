@@ -30,7 +30,6 @@ window.NGT_SCROLL_WORLD = {
       body: '3차원 좌표측정기와 3D 스캐너, 조도 측정기로 공차를 검사합니다.', tags: ['CMM', '3D 스캐너', '조도 측정'] },
     { id: 'parts', label: '마킹과 성적서', still: 'assets/img/film4.jpg', clip: 'assets/vid/leg4.mp4', clipMobile: 'assets/vid/leg4-m.mp4', accent: '#6fb8cc',
       eyebrow: '마킹과 성적서', title: '검사 이력과 함께 출하합니다',
-      body: '레이저 마킹으로 부품을 식별하고 검사 성적서를 발행합니다.',
-      cta: { primary: { label: '견적 문의하기', href: '#inquiry' } } },
+      body: '레이저 마킹으로 부품을 식별하고 검사 성적서를 발행합니다.' },
   ],
 };

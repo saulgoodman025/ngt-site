@@ -1,0 +1,11 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1440,height:900}});
+await p.goto('http://127.0.0.1:8766/index.html');await p.waitForTimeout(1200);
+await p.click('.lang__btn');await p.waitForTimeout(400);await p.screenshot({path:'shots/lang-open.png',clip:{x:900,y:0,width:540,height:300}});
+await p.click('.lang__opt[data-lang="en"]');await p.waitForLoadState('load');await p.waitForTimeout(1500);
+console.log('after click:',p.url(),'|',await p.title(),'|',await p.textContent('.film__line'),'|',await p.textContent('.lang__name'));
+await p.evaluate(()=>scrollTo(0,1.56*900));await p.waitForTimeout(2000);await p.screenshot({path:'shots/lang-en-film.png'});
+await p.goto('http://127.0.0.1:8766/index.html');await p.waitForTimeout(800);console.log('revisit without param:',await p.title());
+await p.click('.lang__btn');await p.click('.lang__opt[data-lang="ko"]');await p.waitForLoadState('load');await p.waitForTimeout(800);console.log('back to ko:',p.url(),await p.title());
+const m=await b.newPage({viewport:{width:390,height:844}});await m.goto('http://127.0.0.1:8766/index.html?lang=ja');await m.waitForTimeout(1200);await m.click('.lang__btn');await m.waitForTimeout(400);await m.screenshot({path:'shots/lang-m.png'});
+await b.close()})();
