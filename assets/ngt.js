@@ -103,6 +103,17 @@
   }));
 })();
 
+/* the map: loaded when the contact section comes near, in the page's language */
+(function () {
+  const f = document.querySelector('.cmap__frame'); if (!f) return;
+  const L = window.NGT_LANG || 'ko', hl = { ko: 'ko', en: 'en', ja: 'ja', zh: 'zh-CN' }[L] || 'ko';
+  const t = { en: 'NGT location map', ja: 'NGTの所在地の地図', zh: 'NGT位置地图' }[L]; if (t) f.title = t;
+  const load = () => { if (!f.src) f.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(f.dataset.q) + '&z=16&hl=' + hl + '&output=embed'; };
+  if (!('IntersectionObserver' in window)) return load();
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '600px 0px' });
+  io.observe(f);
+})();
+
 /* the contact button: go to the footer's contact block and mark it for a moment */
 (function () {
   const box = document.getElementById('contact-info'); if (!box) return;

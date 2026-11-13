@@ -78,7 +78,7 @@ main > section.ngt { position: relative; display: block; height: auto; min-heigh
 .ind { position: relative; flex: 1 1 0; min-width: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--n-line); background: #050c1a; cursor: pointer; transition: flex-grow .8s var(--n-ease), border-color .35s; outline-offset: 3px; }
 .ind.is-on { flex-grow: 3.4; border-color: var(--n-line-2); }
 .ind img { position: absolute; inset: 0 0 auto 0; width: 100%; height: 84%; max-width: none; object-fit: cover; filter: saturate(.8) brightness(.66); transition: filter .8s, transform 1.4s var(--n-ease); -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
-.ind:nth-child(2) img { object-position: 44% 50%; } .ind:nth-child(4) img { object-position: 36% 50%; }
+.ind:nth-child(2) img { object-position: 60% 50%; } .ind:nth-child(4) img { object-position: 36% 50%; }
 .ind.is-on img { filter: none; transform: scale(1.03); }
 .ind::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(5 12 24 / .1) 0%, rgb(5 12 24 / 0) 30%, rgb(5 12 24 / .1) 62%, rgb(5 12 24 / .9) 100%); }
 .ind__n { position: absolute; z-index: 1; top: 22px; left: 24px; font: 500 13px/1 var(--font-text); letter-spacing: .06em; color: #dfe9f7; font-variant-numeric: tabular-nums; }
@@ -251,5 +251,12 @@ main > section.pp { padding-top: calc(var(--nav, 72px) + clamp(56px, 7vw, 104px)
 .ccard__go svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .ccard--link:hover { border-color: var(--n-blue); transform: translateY(-4px); box-shadow: 0 18px 44px rgb(0 0 0 / .35); } .ccard--link:hover .ccard__go { gap: 12px; }
 .contact.is-flash .ccard { border-color: #fff; box-shadow: 0 0 0 4px rgb(255 255 255 / .12); }
+.cmap { position: relative; grid-column: 1 / -1; height: clamp(300px, 36vw, 460px); border-radius: 18px; overflow: hidden; border: 1px solid var(--n-line); background: var(--n-card); isolation: isolate; }
+.cmap__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: invert(.92) hue-rotate(180deg) saturate(.75) brightness(.92) contrast(.92); }
+.cmap::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 0 1px rgb(111 177 238 / .12), inset 0 -70px 60px -40px rgb(5 12 24 / .7); }
+.cmap__go { position: absolute; z-index: 1; right: clamp(16px, 2vw, 24px); bottom: clamp(16px, 2vw, 24px); display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; background: #fff; color: #071224; font: 600 14px/1 var(--font-text); text-decoration: none; box-shadow: 0 8px 24px rgb(0 0 0 / .4); transition: gap .3s var(--n-ease); }
+.cmap__go:hover { gap: 12px; }
+.cmap__go svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.contact.is-flash .cmap { border-color: #fff; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } .ccard { min-height: 0; } }
 @media (max-width: 639px) { .ccard__go { position: static; justify-self: start; margin-top: 6px; } }
