@@ -110,8 +110,8 @@
   const flash = () => { clearTimeout(t); box.classList.add('is-flash'); t = setTimeout(() => box.classList.remove('is-flash'), 2600); };
   document.querySelectorAll('a.ask').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
-    box.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    (document.getElementById('contact') || box).scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     setTimeout(flash, 500);
   }));
-  if (location.hash === '#contact') setTimeout(() => { box.scrollIntoView({ block: 'center' }); flash(); }, 600);
+  if (location.hash === '#contact') setTimeout(() => { (document.getElementById('contact') || box).scrollIntoView({ block: 'start' }); flash(); }, 600);
 })();

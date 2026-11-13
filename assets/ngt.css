@@ -236,3 +236,19 @@ main > section.pp { padding-top: calc(var(--nav, 72px) + clamp(56px, 7vw, 104px)
 .pp-dl dt { font: 500 14px/1.6 var(--font-text); color: var(--n-ink); } .pp-dl dd { margin: 0; font-size: 14.5px; line-height: 1.65; overflow-wrap: anywhere; }
 .pp-back { margin: clamp(32px, 4vw, 56px) 0 0; } .pp-back a { color: var(--n-blue); text-decoration: none; font: 500 15px/1 var(--font-text); } .pp-back a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 639px) { .pp-dl > div { grid-template-columns: 1fr; } .pp-doc { font-size: 15px; } }
+
+/* ---------- 07 CONTACT: four large cards, the phone and the email are links ---------- */
+#contact { scroll-margin-top: 0; }
+.contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ccard { position: relative; display: grid; align-content: start; gap: 14px; min-height: 220px; padding: clamp(24px, 2.6vw, 36px); border-radius: 18px; border: 1px solid var(--n-line); background: linear-gradient(180deg, var(--n-card-2), var(--n-card)); color: var(--n-ink); text-decoration: none; transition: border-color .35s, transform .5s var(--n-ease), box-shadow .35s; }
+.ccard__ico { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 13px; color: var(--n-blue); background: rgb(111 177 238 / .10); border: 1px solid rgb(111 177 238 / .22); }
+.ccard__ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ccard__k { margin-top: 10px; font: 500 15px/1 var(--font-text); color: var(--n-blue); }
+.ccard__v { font: 500 clamp(1.5rem, 3vw, 2.5rem)/1.2 var(--font-display); letter-spacing: -0.02em; color: var(--n-ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ccard__v--addr { font-size: clamp(1.25rem, 2.1vw, 1.75rem); line-height: 1.35; letter-spacing: -0.015em; text-wrap: balance; }
+.ccard__go { position: absolute; right: clamp(20px, 2.4vw, 32px); top: clamp(24px, 2.6vw, 36px); display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 999px; background: #fff; color: #071224; font: 600 14px/1 var(--font-text); transition: gap .3s var(--n-ease); }
+.ccard__go svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.ccard--link:hover { border-color: var(--n-blue); transform: translateY(-4px); box-shadow: 0 18px 44px rgb(0 0 0 / .35); } .ccard--link:hover .ccard__go { gap: 12px; }
+.contact.is-flash .ccard { border-color: #fff; box-shadow: 0 0 0 4px rgb(255 255 255 / .12); }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } .ccard { min-height: 0; } }
+@media (max-width: 639px) { .ccard__go { position: static; justify-self: start; margin-top: 6px; } }

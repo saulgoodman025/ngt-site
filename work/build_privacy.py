@@ -54,8 +54,10 @@ head = re.sub(r'<meta property="og:[^>]*>\n', '', head); head = re.sub(r'<meta n
 nav = idx[idx.index('<header class="nav'):idx.index('</header>') + 9]
 nav = nav.replace('href="#top"', 'href="index.html"').replace('href="#process"', 'href="index.html#process"').replace('href="#tech"', 'href="index.html#tech"') \
          .replace('href="#industries"', 'href="index.html#industries"').replace('href="#capacity"', 'href="index.html#capacity"').replace('href="#quality"', 'href="index.html#quality"')
+nav = nav.replace('href="#contact"', 'href="index.html#contact"')
 nav = nav.replace('<a class="skip-link" href="index.html"', '<a class="skip-link" href="#top"')
 foot = idx[idx.index('<footer class="foot"'):idx.index('</footer>') + 9]
+foot = foot.replace('id="footer"', 'id="contact"')
 for a in ('process', 'tech', 'industries', 'company', 'capacity', 'history', 'quality', 'top'):
     foot = foot.replace(f'href="#{a}"', f'href="index.html#{a}"' if a != 'top' else 'href="index.html"')
 foot = foot.replace('href="privacy.html"', 'href="privacy.html" aria-current="page"')
