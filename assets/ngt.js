@@ -102,3 +102,16 @@
     const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
   }));
 })();
+
+/* the contact button: go to the footer's contact block and mark it for a moment */
+(function () {
+  const box = document.getElementById('contact-info'); if (!box) return;
+  let t;
+  const flash = () => { clearTimeout(t); box.classList.add('is-flash'); t = setTimeout(() => box.classList.remove('is-flash'), 2600); };
+  document.querySelectorAll('a.ask').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    box.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    setTimeout(flash, 500);
+  }));
+  if (location.hash === '#contact') setTimeout(() => { box.scrollIntoView({ block: 'center' }); flash(); }, 600);
+})();

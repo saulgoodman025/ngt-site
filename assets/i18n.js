@@ -62,9 +62,9 @@
       q2c3: 'INNO-BIZ', q2c4: 'Excellent workplace for risk assessment',
       q1alt: 'A ruby-tipped probe measuring a machined part', q2alt: 'A machined part with a laser-marked identification code',
       footlede: 'Beyond precision, machining the future of Korea.',
-      fc1: 'Process & technology', fc1a: 'Five steps', fc2: 'Company', fc3: 'Location',
+      fc1: 'Process & technology', fc1a: 'Five steps', fc2: 'Company', fc3: 'Contact', ask: 'Contact', privacy: 'Privacy Policy', ptitle: 'Privacy Policy | NGT', ppback: '← Back to home',
       addr: '28-73 Gajangsaneopdong-ro, Osan-si, Gyeonggi-do, Korea',
-      copy: '&copy; 2026 NGT (New Generation Technology)',
+      copy: '&copy; 2026 NGT (New Generation Technology). All rights reserved.',
     },
     ja: {
       title: 'NGT | 5軸・多軸精密加工',
@@ -124,9 +124,9 @@
       q2c3: 'INNO-BIZ', q2c4: 'リスクアセスメント優秀事業場',
       q1alt: 'ルビーチップのプローブが加工部品を接触測定する様子', q2alt: 'レーザーマーキングで識別表示を刻んだ加工部品',
       footlede: '精密さを超えて、韓国の未来を加工します。',
-      fc1: '工程と技術', fc1a: '5つの工程', fc2: '会社', fc3: 'アクセス',
+      fc1: '工程と技術', fc1a: '5つの工程', fc2: '会社', fc3: '連絡先', ask: 'お問い合わせ', privacy: 'プライバシーポリシー', ptitle: 'プライバシーポリシー | NGT', ppback: '← ホームに戻る', ppnote: '日本語版はありません。英語訳を表示しています。韓国語版が正本です。',
       addr: '韓国 京畿道 烏山市 佳長産業東路 28-73',
-      copy: '&copy; 2026 NGT (New Generation Technology)',
+      copy: '&copy; 2026 NGT (New Generation Technology). All rights reserved.',
     },
     zh: {
       title: 'NGT | 五轴·多轴精密加工',
@@ -186,9 +186,9 @@
       q2c3: 'INNO-BIZ', q2c4: '风险评估优秀企业',
       q1alt: '红宝石测头接触测量加工零件', q2alt: '以激光打标刻有识别标记的加工零件',
       footlede: '超越精密，加工韩国的未来。',
-      fc1: '工艺与技术', fc1a: '五道工序', fc2: '公司', fc3: '地址',
+      fc1: '工艺与技术', fc1a: '五道工序', fc2: '公司', fc3: '联系方式', ask: '联系我们', privacy: '隐私政策', ptitle: '隐私政策 | NGT', ppback: '← 返回首页', ppnote: '暂无中文版，以下显示英文译本。以韩文版为准。',
       addr: '韩国京畿道乌山市佳长产业东路28-73',
-      copy: '&copy; 2026 NGT (New Generation Technology)',
+      copy: '&copy; 2026 NGT (New Generation Technology). All rights reserved.',
     },
   };
 
@@ -199,7 +199,7 @@
     document.querySelectorAll('[data-i18n]').forEach(n => { const v = d[n.dataset.i18n]; if (v !== undefined) n.innerHTML = v; });
     document.querySelectorAll('[data-i18n-aria]').forEach(n => { const v = d[n.dataset.i18nAria]; if (v) n.setAttribute('aria-label', v); });
     document.querySelectorAll('[data-i18n-alt]').forEach(n => { const v = d[n.dataset.i18nAlt]; if (v) n.setAttribute('alt', v); });
-    document.title = d.title;
+    document.title = d[html.dataset.titleKey || 'title'] || d.title;
     const set = (sel, v) => { const m = document.querySelector(sel); if (m && v) m.setAttribute('content', v); };
     set('meta[name="description"]', d.desc); set('meta[property="og:title"]', d.title); set('meta[property="og:description"]', d.desc);
     const cfg = window.NGT_SCROLL_WORLD;

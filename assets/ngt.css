@@ -195,3 +195,44 @@ main > section.ngt { position: relative; display: block; height: auto; min-heigh
 
 /* the motto is always set in the brand's Latin face, whatever the page language, with room for its descenders */
 .film__motto, .foot__motto { font-family: "IBM Plex Sans KR", system-ui, sans-serif !important; line-height: 1.16 !important; padding-bottom: .16em !important; overflow: visible; }
+
+/* ---------- the bar's contact button and the footer's contact block ---------- */
+:root { --ask-bg: #ffffff; --ask-ink: #071224; }
+.ask { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 20px; border-radius: 10px; background: var(--ask-bg); color: var(--ask-ink); font: 600 15px/1 var(--font-text); text-decoration: none; white-space: nowrap; box-shadow: 0 6px 22px color-mix(in srgb, var(--ask-bg) 38%, transparent); transition: transform .25s var(--n-ease), filter .2s, box-shadow .25s; }
+.ask:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 10px 28px color-mix(in srgb, var(--ask-bg) 50%, transparent); }
+.ask:active { transform: none; }
+.nav .nav__actions { gap: 10px; }
+.nav .nav__actions > .ask { display: inline-flex !important; }
+.foot__contact { position: relative; }
+.foot__contact::before { content: ""; position: absolute; inset: -18px -20px; border-radius: 16px; border: 1px solid transparent; pointer-events: none; transition: border-color .4s, background .4s, box-shadow .4s; }
+.foot__contact.is-flash::before { border-color: var(--ask-bg); background: color-mix(in srgb, var(--ask-bg) 8%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--ask-bg) 14%, transparent); }
+.foot__contact li { color: var(--n-ink); }
+.foot__privacy { color: var(--n-ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--n-line-2); } .foot__privacy:hover { color: var(--n-blue); }
+html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (max-width: 639px) { .ask { height: 36px; padding: 0 14px; font-size: 14px; } .nav .nav__actions { gap: 8px; } }
+
+/* ---------- the privacy policy page ---------- */
+main > section.pp { padding-top: calc(var(--nav, 72px) + clamp(56px, 7vw, 104px)); }
+.pp .ngt-kicker { margin-bottom: 28px; }
+.pp-note { margin: 0 0 28px; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--n-line-2); background: rgb(111 177 238 / .08); font: 400 15px/1.6 var(--font-text); color: var(--n-ink); max-width: 880px; }
+.pp-doc { max-width: 980px; color: var(--n-soft); font: 400 16px/1.8 var(--font-text); }
+.pp-doc h1 { margin: 0 0 20px; font: 500 clamp(2.2rem, 5vw, 4rem)/1.1 var(--font-display); letter-spacing: -0.03em; max-width: none; background: var(--n-grad); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .1em; }
+.pp-doc > p:first-of-type { display: inline-block; margin: 0 0 28px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--n-line-2); font: 500 13px/1.4 var(--font-text); color: var(--n-blue); }
+.pp-doc p { margin: 0 0 14px; max-width: 78ch; }
+.pp-doc > p { color: var(--n-ink); font-size: clamp(1rem, 1.25vw, 1.125rem); }
+.pp-doc section { margin-top: clamp(28px, 3.4vw, 44px); padding: clamp(24px, 3vw, 40px); border-radius: 18px; border: 1px solid var(--n-line); background: linear-gradient(180deg, rgb(15 33 64 / .72), rgb(12 26 50 / .72)); }
+.pp-doc h2 { margin: 0 0 18px; font: 500 clamp(1.25rem, 2vw, 1.6rem)/1.3 var(--font-display); letter-spacing: -0.02em; color: var(--n-ink); max-width: none; }
+.pp-doc h3 { margin: 26px 0 12px; font: 500 1.05rem/1.4 var(--font-display); color: var(--n-blue); }
+.pp-doc ul { margin: 0 0 14px; padding: 0; list-style: none; display: grid; gap: 10px; }
+.pp-doc li { position: relative; padding-left: 18px; } .pp-doc li::before { content: ""; position: absolute; left: 0; top: .78em; width: 6px; height: 6px; border-radius: 50%; background: var(--n-blue); }
+.pp-table { margin: 6px 0 18px; overflow-x: auto; border-radius: 12px; border: 1px solid var(--n-line); }
+.pp-doc table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 14.5px; line-height: 1.65; }
+.pp-doc th { text-align: left; padding: 12px 16px; font: 500 13px/1.4 var(--font-text); color: var(--n-blue); background: rgb(111 177 238 / .08); white-space: nowrap; }
+.pp-doc td { padding: 14px 16px; vertical-align: top; border-top: 1px solid var(--n-line); color: var(--n-soft); }
+.pp-doc td:first-child { color: var(--n-ink); font-weight: 500; }
+.pp-dl { margin: 0 0 14px; border-radius: 12px; border: 1px solid var(--n-line); overflow: hidden; }
+.pp-dl > div { display: grid; grid-template-columns: minmax(140px, 220px) minmax(0, 1fr); gap: 4px 20px; padding: 13px 16px; }
+.pp-dl > div + div { border-top: 1px solid var(--n-line); }
+.pp-dl dt { font: 500 14px/1.6 var(--font-text); color: var(--n-ink); } .pp-dl dd { margin: 0; font-size: 14.5px; line-height: 1.65; overflow-wrap: anywhere; }
+.pp-back { margin: clamp(32px, 4vw, 56px) 0 0; } .pp-back a { color: var(--n-blue); text-decoration: none; font: 500 15px/1 var(--font-text); } .pp-back a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 639px) { .pp-dl > div { grid-template-columns: 1fr; } .pp-doc { font-size: 15px; } }
