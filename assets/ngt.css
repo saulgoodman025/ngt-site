@@ -60,6 +60,10 @@ main > section.ngt { position: relative; display: block; height: auto; min-heigh
 .shot figcaption { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 1; display: flex; align-items: center; gap: 10px; font: 500 14px/1.4 var(--font-text); color: #dfe9f7; }
 .shot figcaption::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--n-blue); box-shadow: 0 0 0 4px rgb(111 177 238 / .22); flex: none; }
 .tech__shot { grid-column: span 5; margin: 0; }
+.tech__stage { position: relative; grid-column: span 5; margin: 0; min-height: 320px; display: grid; place-items: center; isolation: isolate; }
+.tech__stage::before { content: ""; position: absolute; inset: 4% -6%; z-index: -1; background: radial-gradient(56% 44% at 50% 52%, rgb(64 140 230 / .26), transparent 72%); }
+.tech__stage::after { content: ""; position: absolute; left: 6%; right: 6%; top: calc(50% + 31%); height: 7%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .6), transparent); filter: blur(8px); }
+.tech__stage img { width: 104%; max-width: none; height: auto; transform: translateX(3%); filter: drop-shadow(0 30px 40px rgb(0 0 0 / .45)); }
 
 /* ---------- COMPANY: the statement and four facts ---------- */
 .about__text { margin: 0; font: 500 clamp(1.6rem, 3.5vw, 3.1rem)/1.32 var(--font-display); letter-spacing: -0.028em; max-width: 22em; text-wrap: pretty; }
@@ -165,7 +169,8 @@ main > section.ngt { position: relative; display: block; height: auto; min-heigh
 
 /* ---------- smaller screens ---------- */
 @media (max-width: 1023px) {
-  .tech__cards, .tech__shot, .cap__shot, .cap__tiles { grid-column: 1 / -1; }
+  .tech__cards, .tech__shot, .tech__stage, .cap__shot, .cap__tiles { grid-column: 1 / -1; }
+  .tech__stage { order: -1; min-height: 0; padding: 8px 0 28px; } .tech__stage img { width: min(100%, 620px); transform: none; }
   .tech__shot, .cap__shot { aspect-ratio: 16 / 10; min-height: 0; }
   .tech__shot { order: -1; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stats li:nth-child(3) { padding-left: 0; border-left: 0; } .stats li:nth-child(n+3) { margin-top: 32px; border-top: 1px solid var(--n-line); }
