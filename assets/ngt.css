@@ -192,3 +192,6 @@ main > section.ngt { position: relative; display: block; height: auto; min-heigh
 }
 .lang__code { display: none; letter-spacing: .04em; }
 @media (hover: none) { .tcard:hover, .spec:hover { transform: none; } }
+
+/* the motto is always set in the brand's Latin face, whatever the page language, with room for its descenders */
+.film__motto, .foot__motto { font-family: "IBM Plex Sans KR", system-ui, sans-serif !important; line-height: 1.16 !important; padding-bottom: .16em !important; overflow: visible; }
