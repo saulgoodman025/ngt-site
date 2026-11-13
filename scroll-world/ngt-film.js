@@ -153,28 +153,53 @@ function mountNgtFilm(container, config) {
     window.scrollTo({ top: baseY() + to, behavior: reduce ? 'auto' : 'smooth' });
   }
 
+  // Clips are fetched as blobs a few legs ahead, and a <video> is built from the blob only while its
+  // leg is near. A phone has few video decoders and little memory: with every leg's video alive, the
+  // third one on stops decoding and the film jumps from still to still. So on a phone only the current
+  // leg and its two neighbours keep a <video>; the others are torn down (their blobs stay, so coming
+  // back needs no download).
+  function fetchClip(s) {
+    if (reduce || !s.clip || s.blob || s.loading) return;
+    s.loading = true;
+    const url = pick(s.clip, s.clipM, s.clipP);
+    fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
+      .then(blob => { s.blob = blob; s.loading = false; if (s.want) makeVideo(s); })
+      .catch(() => { s.loading = false; });
+  }
+  function makeVideo(s) {
+    if (s.video || !s.blob) return;
+    const v = document.createElement('video');
+    v.className = 'sw-scene__video';
+    v.muted = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    s.objUrl = URL.createObjectURL(s.blob);
+    v.src = s.objUrl;
+    v.addEventListener('loadedmetadata', () => { if (s.video !== v) return; s.ready = true; s.cur = s.target || 0;
+      // seek once straight away so the first real frame paints and replaces the poster before the leg is on screen
+      try { v.currentTime = Math.max(0.01, clamp(s.cur, 0, 0.999) * (v.duration || 1)); } catch (e) {}
+      read(); });
+    // Reveal the video (hide the still poster) only once a real frame has
+    // painted — on iOS a seeked-but-never-played muted video stays blank, so
+    // hiding the still on metadata alone would flash an empty scene.
+    v.addEventListener('seeked', () => { if (s.video === v) s.el.classList.add('has-clip'); }, { once: true });
+    v.addEventListener('loadeddata', () => { try { v.pause(); } catch (e) {} if (userReady) primeVideo(v); });
+    s.el.appendChild(v); s.video = v; s.hasClip = true;
+  }
   function loadClip(s) {
     // Under prefers-reduced-motion we never load the clips at all — the stills stay up
     // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
-    if (reduce || s.loading || !s.clip) return;
-    s.loading = true;
-    // Serve the lighter mobile encode on phones when one was provided.
-    const url = pick(s.clip, s.clipM, s.clipP);
-    fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
-      .then(blob => {
-        const v = document.createElement('video');
-        v.className = 'sw-scene__video';
-        v.muted = true; v.playsInline = true; v.preload = 'auto';
-        v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-        v.src = URL.createObjectURL(blob);
-        v.addEventListener('loadedmetadata', () => { s.ready = true; read(); });
-        // Reveal the video (hide the still poster) only once a real frame has
-        // painted — on iOS a seeked-but-never-played muted video stays blank, so
-        // hiding the still on metadata alone would flash an empty scene.
-        v.addEventListener('seeked', () => { s.el.classList.add('has-clip'); }, { once: true });
-        v.addEventListener('loadeddata', () => { try { v.pause(); } catch (e) {} if (userReady) primeVideo(v); });
-        s.el.appendChild(v); s.video = v; s.hasClip = true;
-      }).catch(() => { s.loading = false; });
+    if (reduce || !s.clip) return;
+    s.want = true;
+    if (s.blob) makeVideo(s); else fetchClip(s);
+  }
+  function dropClip(s) {
+    s.want = false;
+    const v = s.video; if (!v) return;
+    s.video = null; s.hasClip = false; s.ready = false;
+    s.el.classList.remove('has-clip');
+    try { v.pause(); v.removeAttribute('src'); v.load(); } catch (e) {}
+    v.remove();
+    try { URL.revokeObjectURL(s.objUrl); } catch (e) {}
   }
 
   function read() {
@@ -202,7 +227,10 @@ function mountNgtFilm(container, config) {
 
     for (let i = 0; i < NSEG; i++) {
       const s = SEGMENTS[i];
-      if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
+      if (isMobile()) {
+        if (Math.abs(i - ci) <= 1) loadClip(s); else dropClip(s);
+        if (i > ci && i <= ci + 3) fetchClip(s);          // the next legs' data, ahead of the scroll
+      } else if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
       const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
       s.target = s.linger ? lingerEase(local, s.linger) : local;
       let outside = 0;
