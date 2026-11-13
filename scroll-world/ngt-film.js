@@ -13,6 +13,10 @@ function mountNgtFilm(container, config) {
   const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const smallMQ = window.matchMedia('(max-width: 860px)');
   const isMobile = () => coarse || smallMQ.matches;
+  // a phone held upright shows only the middle of a 16:9 frame, so it gets a portrait crop of the
+  // full-resolution source; a tablet (touch, wide) gets the desktop clip; a phone on its side the light one
+  const portraitMQ = window.matchMedia('(orientation: portrait) and (max-width: 860px)');
+  const pick = (full, light, tall) => (portraitMQ.matches && tall) ? tall : (smallMQ.matches || (coarse && Math.max(window.innerWidth, window.innerHeight) <= 960)) && light ? light : full;
   const SECTIONS = config.sections || [];
   const CONNECTORS = config.connectors || [];
   const CONNECTORS_M = config.connectorsMobile || [];
@@ -28,7 +32,7 @@ function mountNgtFilm(container, config) {
   // ---- build the interleaved segment chain: dive0, conn0, dive1, … diveN-1 ----
   const SEGMENTS = [];
   SECTIONS.forEach((s, i) => {
-    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, still: s.still, stillM: s.stillMobile,
+    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, clipP: s.clipPortrait, still: s.still, stillM: s.stillMobile, stillP: s.stillPortrait,
                    accent: s.accent, w: s.scroll || DIVE_W, linger: s.linger || 0 };
     SEGMENTS.push(dive);
     s._seg = dive;
@@ -89,7 +93,7 @@ function mountNgtFilm(container, config) {
   SEGMENTS.forEach(s => {
     const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
     const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
-    const poster = (isMobile() && s.stillM) ? s.stillM : s.still;
+    const poster = pick(s.still, s.stillM, s.stillP);
     if (poster) img.src = poster;
     scene.appendChild(img); stage.appendChild(scene);
     s.el = scene; s.img = img; s.video = null; s.hasClip = false;
@@ -155,7 +159,7 @@ function mountNgtFilm(container, config) {
     if (reduce || s.loading || !s.clip) return;
     s.loading = true;
     // Serve the lighter mobile encode on phones when one was provided.
-    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
+    const url = pick(s.clip, s.clipM, s.clipP);
     fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
       .then(blob => {
         const v = document.createElement('video');
